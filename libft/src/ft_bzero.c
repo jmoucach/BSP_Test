@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wolf3d.h                                           :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: acostaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/19 14:10:43 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/02 12:10:23 by acostaz          ###   ########.fr       */
+/*   Created: 2018/11/07 17:14:01 by acostaz           #+#    #+#             */
+/*   Updated: 2019/06/25 16:17:11 by avanhers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WOLF3D_H
-# define WOLF3D_H
+#include "libft.h"
 
-# include "SDL.h"
-# include "struct.h"
-# include "proto.h"
-# include "../libft/inc/libft.h"
+void	ft_bzero(void *s, size_t n)
+{
+	char	*str;
+	size_t	i;
 
-# include <fcntl.h>
-# include <math.h>
-
-# define SCREEN_WIDTH 1280
-# define SCREEN_HEIGHT 720
-
-#endif
+	i = -1;
+	str = (char*)s;
+	while (++i < n)
+		str[i] = '\0';
+}

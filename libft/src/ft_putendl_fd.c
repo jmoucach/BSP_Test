@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wolf3d.h                                           :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: acostaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/19 14:10:43 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/02 12:10:23 by acostaz          ###   ########.fr       */
+/*   Created: 2018/11/17 09:19:21 by acostaz           #+#    #+#             */
+/*   Updated: 2018/11/30 12:37:33 by acostaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WOLF3D_H
-# define WOLF3D_H
+#include "libft.h"
+#include <unistd.h>
 
-# include "SDL.h"
-# include "struct.h"
-# include "proto.h"
-# include "../libft/inc/libft.h"
-
-# include <fcntl.h>
-# include <math.h>
-
-# define SCREEN_WIDTH 1280
-# define SCREEN_HEIGHT 720
-
-#endif
+void	ft_putendl_fd(char const *s, int fd)
+{
+	write(fd, s, ft_strlen(s));
+	write(fd, "\n", 1);
+}

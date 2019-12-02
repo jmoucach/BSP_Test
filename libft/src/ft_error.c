@@ -1,27 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wolf3d.h                                           :+:      :+:    :+:   */
+/*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: acostaz <acostaz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/19 14:10:43 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/02 12:10:23 by acostaz          ###   ########.fr       */
+/*   Created: 2019/08/19 11:40:11 by acostaz           #+#    #+#             */
+/*   Updated: 2019/08/19 11:41:08 by acostaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WOLF3D_H
-# define WOLF3D_H
+#include "../inc/libft.h"
 
-# include "SDL.h"
-# include "struct.h"
-# include "proto.h"
-# include "../libft/inc/libft.h"
-
-# include <fcntl.h>
-# include <math.h>
-
-# define SCREEN_WIDTH 1280
-# define SCREEN_HEIGHT 720
-
-#endif
+void	ft_error(char *str)
+{
+	ft_putendl(str);
+	exit(EXIT_FAILURE);
+}

@@ -6,7 +6,7 @@
 #    By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/26 16:03:44 by jmoucach          #+#    #+#              #
-#    Updated: 2019/12/02 10:36:35 by jmoucach         ###   ########.fr        #
+#    Updated: 2019/12/02 12:14:36 by acostaz          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,18 @@ SRC= init/main.c\
 	 map/new_map.c\
 	 map/fill_map.c\
 	 map/parsing.c\
+	 png/check_png_signature.c \
+	 png/idat_block_extraction.c \
+	 png/idat_utils.c \
+	 png/parse_png.c \
+	 png/png_utils.c \
+	 png/png_utils2.c \
+	 png/post_processing.c \
+	 png/process_ihdr.c \
+	 png/process_idat.c \
+	 png/unfiltering.c \
+	 png/unfiltering_utils.c \
+	 png/zlib.c \
 	 raycasting/raycasting.c\
 	 raycasting/floorcaster.c\
 	 game/event_loop.c\
@@ -51,9 +63,10 @@ SRC= init/main.c\
 SRCS= $(addprefix $(SRC_DIR),$(SRC))
 OBJ_DIR= obj/
 OBJ= $(SRC:.c=.o)
-OBJ_SUBDIRS= init draw map raycasting game  image vertex BSP
+OBJ_SUBDIRS= init draw map raycasting game  image vertex png BSP
 OBJS= $(addprefix $(OBJ_DIR), $(OBJ))
 SUBDIRS= $(foreach dir, $(OBJ_SUBDIRS), $(OBJ_DIR)$(dir))
+LIBFT=libft/libft.a
 LIB= `sdl2-config --libs` \
 	 -L libft -lft
 INCLUDES=	hdr/wolf3d.h\
@@ -66,11 +79,13 @@ INCLUDES=	hdr/wolf3d.h\
 
 all: $(SUBDIRS) $(NAME)
 
-$(NAME): $(OBJS)
-	@ make -C libft
+$(NAME): $(LIBFT) $(OBJS)
 	@ echo "$(YELLOW)Creating $@ executable$(WHITE)"
 	@ $(CC) -o $@ $(CFLAGS) $(OBJS) $(LIB) $(FRAMEWORK)
 	@echo "$(GREEN)$@ executable created$(WHITE)"
+
+$(LIBFT):
+	@ make -C libft
 
 $(SUBDIRS):
 	@ mkdir -p $(SUBDIRS)
@@ -80,6 +95,7 @@ $(OBJ_DIR)%.o:$(SRC_DIR)%.c $(INCLUDES) Makefile
 	@ echo "$(GREEN)[✔]$(WHITE)$@"
 
 clean:
+	@ make clean -C libft
 	@ echo "$(YELLOW)Deleting objects$(WHITE)"
 	@ for i in $(OBJ); do \
 		echo "$(RED)- Deleting $$i$(WHITE)"; \

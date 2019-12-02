@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wolf3d.h                                           :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: acostaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/19 14:10:43 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/02 12:10:23 by acostaz          ###   ########.fr       */
+/*   Created: 2018/11/14 13:39:08 by acostaz           #+#    #+#             */
+/*   Updated: 2018/11/30 12:49:58 by acostaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WOLF3D_H
-# define WOLF3D_H
+char	*ft_strrchr(const char *str, int c)
+{
+	int		i;
+	char	*mark;
 
-# include "SDL.h"
-# include "struct.h"
-# include "proto.h"
-# include "../libft/inc/libft.h"
-
-# include <fcntl.h>
-# include <math.h>
-
-# define SCREEN_WIDTH 1280
-# define SCREEN_HEIGHT 720
-
-#endif
+	i = -1;
+	mark = 0;
+	while (str[++i] != '\0')
+		if (str[i] == c)
+			mark = (char*)str + i;
+	if (c == 0)
+		mark = (char*)str + i;
+	return (mark);
+}

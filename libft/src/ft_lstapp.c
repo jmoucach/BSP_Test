@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wolf3d.h                                           :+:      :+:    :+:   */
+/*   ft_lstapp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: acostaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/19 14:10:43 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/02 12:10:23 by acostaz          ###   ########.fr       */
+/*   Created: 2018/11/26 11:11:29 by acostaz           #+#    #+#             */
+/*   Updated: 2019/10/01 13:58:08 by acostaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WOLF3D_H
-# define WOLF3D_H
+#include "libft.h"
 
-# include "SDL.h"
-# include "struct.h"
-# include "proto.h"
-# include "../libft/inc/libft.h"
+void		ft_lstapp(t_list **alst, t_list *new)
+{
+	t_list	*temp;
 
-# include <fcntl.h>
-# include <math.h>
-
-# define SCREEN_WIDTH 1280
-# define SCREEN_HEIGHT 720
-
-#endif
+	if (*alst == NULL)
+	{
+		*alst = new;
+		return ;
+	}
+	temp = *alst;
+	while (temp->next)
+		temp = temp->next;
+	temp->next = new;
+}

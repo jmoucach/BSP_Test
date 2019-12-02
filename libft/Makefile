@@ -3,230 +3,151 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+         #
+#    By: acostaz <acostaz@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2018/11/07 15:49:32 by jmoucach          #+#    #+#              #
-#    Updated: 2019/11/11 10:49:41 by jmoucach         ###   ########.fr        #
+#    Created: 2019/06/19 16:17:52 by acostaz           #+#    #+#              #
+#    Updated: 2019/10/23 11:40:11 by acostaz          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# CC= gcc
-# CFLAGS= -Wall -Werror -Wextra
-# FILE= ./ft_putchar.c\
-# 	 ./ft_putchar_fd.c\
-# 	 ./ft_putnbr.c\
-# 	 ./ft_putnbr_fd.c\
-# 	 ./ft_putstr.c\
-# 	 ./ft_putstr_fd.c\
-# 	 ./ft_putendl.c\
-# 	 ./ft_putendl_fd.c\
-# 	 ./ft_strlen.c\
-# 	 ./ft_isalpha.c\
-# 	 ./ft_isdigit.c\
-# 	 ./ft_isalnum.c\
-# 	 ./ft_isascii.c\
-# 	 ./ft_isprint.c\
-# 	 ./ft_toupper.c\
-# 	 ./ft_tolower.c\
-# 	 ./ft_strcmp.c\
-# 	 ./ft_strncmp.c\
-# 	 ./ft_strcpy.c\
-# 	 ./ft_strncpy.c\
-# 	 ./ft_strdup.c\
-# 	 ./ft_strcat.c\
-# 	 ./ft_strncat.c\
-# 	 ./ft_strlcat.c\
-# 	 ./ft_atoi.c\
-# 	 ./ft_itoa.c\
-# 	 ./ft_strstr.c\
-# 	 ./ft_strnstr.c\
-# 	 ./ft_strchr.c\
-# 	 ./ft_strrchr.c\
-# 	 ./ft_strequ.c\
-# 	 ./ft_strnequ.c\
-# 	 ./ft_strclr.c\
-# 	 ./ft_striter.c\
-# 	 ./ft_striteri.c\
-# 	 ./ft_strmap.c\
-# 	 ./ft_strmapi.c\
-# 	 ./ft_strnew.c\
-# 	 ./ft_strdel.c\
-# 	 ./ft_strsub.c\
-# 	 ./ft_strjoin.c\
-# 	 ./ft_strtrim.c\
-# 	 ./ft_strsplit.c\
-# 	 ./ft_memset.c\
-# 	 ./ft_memalloc.c\
-# 	 ./ft_memdel.c\
-# 	 ./ft_memcpy.c\
-# 	 ./ft_memccpy.c\
-# 	 ./ft_memcmp.c\
-# 	 ./ft_memmove.c\
-# 	 ./ft_memchr.c\
-# 	 ./ft_bzero.c\
-# 	 ./ft_lstnew.c\
-# 	 ./ft_lstdelone.c\
-# 	 ./ft_lstdel.c\
-# 	 ./ft_lstadd.c\
-# 	 ./ft_lstiter.c\
-# 	 ./ft_lstmap.c\
-# 	 ./ft_strrev.c\
-# 	 ./get_next_line.c\
-# 	 ./ft_sqrt.c\
-# 	 ./ft_replace.c\
-# 	 ./ft_strtrimc.c\
-# 	 ./ft_strlen_chr.c
-# OBJ= $(FILE:.c=.o)
-# NAME= libft.a
-
-# all: $(NAME)
-
-# $(NAME): $(OBJ)
-# 	ar rc $(NAME) $(OBJ)
-# 	ranlib $(NAME)
+CFLAGS = -Wall -Werror -Wextra -MMD
 
 
-# %.o: %.c
-# 	$(CC) -o $@ -c $< $(CFLAGS)
+NAME = libft.a
 
-# clean:
-# 	rm -rf $(OBJ)
+SRC_NAME = ft_abs.c	\
+		   ft_atoi.c \
+		   ft_bzero.c \
+		   ft_fabs.c \
+		   ft_find_next_prime.c	\
+		   ft_is_prime.c \
+		   ft_isalnum.c \
+		   ft_isalpha.c \
+		   ft_isascii.c \
+		   ft_isdigit.c \
+		   ft_islower.c \
+		   ft_isprint.c \
+		   ft_isupper.c \
+		   ft_itoa.c \
+		   ft_lstadd.c \
+		   ft_lstapp.c \
+		   ft_lstdel.c \
+		   ft_lstdelone.c \
+		   ft_lstiter.c \
+		   ft_lstlen.c \
+		   ft_lstmap.c \
+		   ft_lstnew.c \
+		   ft_memalloc.c \
+		   ft_memccpy.c \
+		   ft_memchr.c \
+		   ft_memcmp.c \
+		   ft_memcpy.c \
+		   ft_memdel.c \
+		   ft_memmove.c \
+		   ft_memset.c \
+		   ft_padicval.c \
+		   ft_printf/buff.c \
+		   ft_printf/float_exponents.c \
+		   ft_printf/float_utils.c \
+		   ft_printf/ft_printf.c \
+		   ft_printf/get_format.c \
+		   ft_printf/id_utils.c \
+		   ft_printf/type_c.c \
+		   ft_printf/type_d.c \
+		   ft_printf/type_f.c \
+		   ft_printf/type_o.c \
+		   ft_printf/type_p.c \
+		   ft_printf/type_pct.c \
+		   ft_printf/type_s.c \
+		   ft_printf/type_u.c \
+		   ft_printf/type_x.c \
+		   ft_printf/utils.c \
+		   ft_putchar.c \
+		   ft_putchar_fd.c \
+		   ft_putendl.c \
+		   ft_putendl_fd.c \
+		   ft_putnbr.c \
+		   ft_putnbr_fd.c \
+		   ft_putnbrendl.c \
+		   ft_putstr.c \
+		   ft_putstr_fd.c \
+		   ft_replace.c \
+		   ft_sqrt.c \
+		   ft_stralnum.c \
+		   ft_stralpha.c \
+		   ft_strascii.c \
+		   ft_strcat.c \
+		   ft_strchr.c \
+		   ft_strclr.c \
+		   ft_strcmp.c \
+		   ft_strcpy.c \
+		   ft_strdel.c \
+		   ft_strdigit.c \
+		   ft_strdup.c \
+		   ft_strequ.c \
+		   ft_striter.c \
+		   ft_striteri.c \
+		   ft_strjoin.c \
+		   ft_strlcat.c \
+		   ft_strlen.c \
+		   ft_strlower.c \
+		   ft_strmap.c \
+		   ft_strmapi.c \
+		   ft_strncat.c \
+		   ft_strncmp.c \
+		   ft_strncpy.c \
+		   ft_strndup.c \
+		   ft_strnequ.c \
+		   ft_strnew.c \
+		   ft_strnstr.c \
+		   ft_strprint.c \
+		   ft_strrchr.c \
+		   ft_strsplit.c \
+		   ft_strstr.c \
+		   ft_strsub.c \
+		   ft_strtrim.c \
+		   ft_strupper.c \
+		   ft_tolower.c \
+		   ft_toupper.c \
+		   get_next_line.c\
+		   ft_error.c
 
-# fclean: clean
-# 	rm -rf $(NAME)
+SRC_DIR = src
+BUILD_DIR = obj
+INC_DIR = inc
 
-# re: fclean all
+OBJ = $(addprefix $(BUILD_DIR)/,$(SRC_NAME:.c=.o))
+DPD = $(addprefix $(BUILD_DIR)/,$(SRC_NAME:.c=.d))
 
-# .PHONY: all clean fclean re
+opti:
+	@$(MAKE) -j all
 
+debug:
+	@$(MAKE) opti DEBUG=yes
 
+all: $(NAME)
 
+$(NAME): $(OBJ) $(INC_DIR)/libft.h $(INC_DIR)/get_next_line.h $(INC_DIR)/ft_printf.h
+	@echo "\033[2K \033[A"
+	@ar rc $(NAME) $(OBJ)
+	@echo "\033[32m[$(NAME)]: compiled\033[0m"
 
-################################################################################
-#								Colors										   #
-################################################################################
-
-RED= \033[31m
-WHITE= \033[0m
-GREEN= \033[32m
-CYAN= \033[36m
-BLUE= \033[34m
-YELLOW= \033[33m
-MAGENTA= \033[35m
-
-################################################################################
-#								Macros										   #
-################################################################################
-NAME= libft.a
-CC= gcc
-CFLAGS= -Wall -Wextra -Werror -g -I/Users/jmoucach/.brew/include/SDL2
-SRC_DIR= src/
-SRC= ./ft_putchar.c\
-	 ./ft_putchar_fd.c\
-	 ./ft_putnbr.c\
-	 ./ft_putnbr_fd.c\
-	 ./ft_putstr.c\
-	 ./ft_putstr_fd.c\
-	 ./ft_putendl.c\
-	 ./ft_putendl_fd.c\
-	 ./ft_strlen.c\
-	 ./ft_isalpha.c\
-	 ./ft_isdigit.c\
-	 ./ft_isalnum.c\
-	 ./ft_isascii.c\
-	 ./ft_isprint.c\
-	 ./ft_toupper.c\
-	 ./ft_tolower.c\
-	 ./ft_strcmp.c\
-	 ./ft_strncmp.c\
-	 ./ft_strcpy.c\
-	 ./ft_strncpy.c\
-	 ./ft_strdup.c\
-	 ./ft_strcat.c\
-	 ./ft_strncat.c\
-	 ./ft_strlcat.c\
-	 ./ft_atoi.c\
-	 ./ft_itoa.c\
-	 ./ft_strstr.c\
-	 ./ft_strnstr.c\
-	 ./ft_strchr.c\
-	 ./ft_strrchr.c\
-	 ./ft_strequ.c\
-	 ./ft_strnequ.c\
-	 ./ft_strclr.c\
-	 ./ft_striter.c\
-	 ./ft_striteri.c\
-	 ./ft_strmap.c\
-	 ./ft_strmapi.c\
-	 ./ft_strnew.c\
-	 ./ft_strdel.c\
-	 ./ft_strsub.c\
-	 ./ft_strjoin.c\
-	 ./ft_strtrim.c\
-	 ./ft_strsplit.c\
-	 ./ft_memset.c\
-	 ./ft_memalloc.c\
-	 ./ft_memdel.c\
-	 ./ft_memcpy.c\
-	 ./ft_memccpy.c\
-	 ./ft_memcmp.c\
-	 ./ft_memmove.c\
-	 ./ft_memchr.c\
-	 ./ft_bzero.c\
-	 ./ft_lstnew.c\
-	 ./ft_lstdelone.c\
-	 ./ft_lstdel.c\
-	 ./ft_lstadd.c\
-	 ./ft_lstiter.c\
-	 ./ft_lstmap.c\
-	 ./ft_strrev.c\
-	 ./get_next_line.c\
-	 ./ft_sqrt.c\
-	 ./ft_replace.c\
-	 ./ft_strtrimc.c\
-	 ./ft_strlen_chr.c\
-	 ./ft_abs.c
-SRCS= $(addprefix $(SRC_DIR),$(SRC))
-OBJ_DIR= obj/
-OBJ= $(SRC:.c=.o)
-OBJS= $(addprefix $(OBJ_DIR), $(OBJ))
-INCLUDES=	libft.h
-###############################################################################
-#								Rules										  #
-###############################################################################
-
-all: $(OBJ_DIR) $(NAME)
-
-$(NAME): $(OBJS)
-	@ echo "$(YELLOW)Creating $@ executable$(WHITE)"
-	@ ar rc $(NAME) $(OBJS)
-	@ ranlib $(NAME)
-	@echo "$(GREEN)$@ executable created$(WHITE)"
-
-$(OBJ_DIR):
-	mkdir $(OBJ_DIR)
-
-$(OBJ_DIR)%.o: %.c $(INCLUDES) Makefile
-	@ $(CC) -o $@ -c $< $(CFLAGS)
-	@ echo "$(GREEN)[✔]$(WHITE)$@"
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(BUILD_DIR)
+	@mkdir -p obj/ft_printf
+	@echo "\033[2K [$(NAME)]: Compilation of $< \033[A"
+	@gcc $(CFLAGS) -I $(INC_DIR) -c $< -o $@
 
 clean:
-	@ echo "$(YELLOW)Deleting objectps$(WHITE)"
-	@ for i in $(OBJ); do \
-		echo "$(RED)- Deleting $$i$(WHITE)"; \
-	done;
-	@ echo "$(GREEN)Objects deleted$(WHITE)"
-	@ rm -rf $(OBJS)
+	@rm -rf $(BUILD_DIR)
+	@echo "\033[33m[$(NAME)]: OBJ deleted\033[0m"
 
 fclean: clean
-	@ echo "$(YELLOW)Deleting obj directory$(WHITE)"
-	@ rm -rf obj
-	@ echo "$(GREEN)Obj directory deleted$(WHITE)"
-	@ echo "$(GREEN)Executable deleted$(WHITE)"
-	@ rm -rf $(NAME)
+	@rm -f $(NAME)
+	@echo "\033[31m[$(NAME)]: deleted\033[0m"
 
 re: fclean all
 
-FORCE:
+.PHONY: all, clean, fclean, re
 
-.PHONY: all re fclean clean
+-include $(DPD)
