@@ -6,14 +6,14 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 15:03:28 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/11/12 14:46:45 by jmoucach         ###   ########.fr       */
+/*   Updated: 2019/12/02 13:01:46 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PROTO_H
 # define PROTO_H
 
-# include "wolf3d.h"
+# include "doom.h"
 
 /*
 ** INIT

@@ -6,11 +6,11 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/30 17:46:23 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/11/12 14:52:16 by jmoucach         ###   ########.fr       */
+/*   Updated: 2019/12/02 13:00:49 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../hdr/wolf3d.h"
+#include "../../hdr/doom.h"
 
 short			count_lines_and_col(t_data *data, char *str)
 {

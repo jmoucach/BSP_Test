@@ -6,11 +6,11 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 17:57:11 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/11/11 17:46:01 by jmoucach         ###   ########.fr       */
+/*   Updated: 2019/12/02 13:00:49 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../hdr/wolf3d.h"
+#include "../../hdr/doom.h"
 
 void			nullify_surfaces(t_data *data)
 {

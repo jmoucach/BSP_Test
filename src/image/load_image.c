@@ -6,11 +6,11 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 09:42:14 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/02 12:28:27 by acostaz          ###   ########.fr       */
+/*   Updated: 2019/12/02 13:00:49 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../hdr/wolf3d.h"
+#include "../../hdr/doom.h"
 
 Uint32				get_pixel(SDL_Surface *s, int x, int y)
 {

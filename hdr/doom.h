@@ -6,14 +6,24 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 09:17:05 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/02 10:48:42 by jmoucach         ###   ########.fr       */
+/*   Updated: 2019/12/02 13:01:19 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DOOM_H
 # define DOOM_H
 
-# include "wolf3d.h"
+# include "SDL.h"
+# include "struct.h"
+# include "proto.h"
+# include "png.h"
+# include "../libft/inc/libft.h"
+
+# include <fcntl.h>
+# include <math.h>
+
+# define SCREEN_WIDTH 1280
+# define SCREEN_HEIGHT 720
 
 # define C_FRONT 1;
 # define C_BACK -1;

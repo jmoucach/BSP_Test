@@ -6,11 +6,11 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 14:51:49 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/11/11 10:18:11 by jmoucach         ###   ########.fr       */
+/*   Updated: 2019/12/02 13:00:49 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../hdr/wolf3d.h"
+#include "../../hdr/doom.h"
 
 void			print_map(t_data data)
 {

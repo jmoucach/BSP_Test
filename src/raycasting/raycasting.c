@@ -6,11 +6,11 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 18:22:58 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/11/08 16:29:17 by jmoucach         ###   ########.fr       */
+/*   Updated: 2019/12/02 13:00:49 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../hdr/wolf3d.h"
+#include "../../hdr/doom.h"
 
 void			set_dist_and_step(t_raycast *r)
 {

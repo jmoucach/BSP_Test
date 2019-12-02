@@ -6,13 +6,13 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 14:19:39 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/02 09:24:21 by jmoucach         ###   ########.fr       */
+/*   Updated: 2019/12/02 13:01:52 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
-# include "wolf3d.h"
+# include "doom.h"
 
 typedef struct		s_point
 {
