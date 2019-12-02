@@ -6,7 +6,7 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 09:51:08 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/02 10:28:58 by jmoucach         ###   ########.fr       */
+/*   Updated: 2019/12/02 14:13:24 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,13 @@ t_vertex perp_vertex(t_vertex v)
 	perp.x = -v.y;
 	perp.y = v.x;
 	return perp;
+}
+
+t_vertex create_vertex(double x, double y)
+{
+	t_vertex new;
+
+	new.x = x;
+	new.y = y;
+	return (new);
 }

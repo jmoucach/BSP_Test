@@ -6,7 +6,7 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 18:07:10 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/02 10:51:19 by jmoucach         ###   ########.fr       */
+/*   Updated: 2019/12/02 14:28:00 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,28 +59,32 @@ void			game_loop(t_data *data)
 	const Uint8	*state;
 	int			width;
 	double		time;
-	t_wall		*walls;
+	t_wlist		*walls;
+	t_wlist *head;
+	t_wlist *tmp;
 	t_vertex	unit;
 	int i=0;
 
-	walls = (t_wall*)malloc(sizeof(t_wall) * 10);
+	walls = NULL;
+
 	while (i < 10)
 	{
-		walls[i] = (t_wall){(t_vertex){50 * (i+1), 50}, (t_vertex){50 * (i+1), 300}, (t_vertex){0, 0}};
-		unit = unit_vertex(substract_vertex(walls[i].end, walls[i].start));
-		walls[i].normal = perp_vertex(unit);
-		printf("unit:x:%f, y:%f\n normal:x:%f, y:%f\n",unit.x, unit.y, walls[i].normal.x, walls[i].normal.y);
-		printf("%d\n", classifywall((t_wall){(t_vertex){(220), 50}, (t_vertex){270, 300}, (t_vertex){0, 0}}, walls[i]));
+		tmp  = new_wlist((t_wall){(t_vertex){(i+1)*50, 50}, (t_vertex){(i+1)*50, 500}, (t_vertex){0, 0}}, i);
+		unit = unit_vertex(substract_vertex(tmp->wall.end, tmp->wall.start));
+		tmp->wall.normal = perp_vertex(unit);
+		add_wlist(&walls, tmp);
 		i++;
 	}
+	head = walls;
 	width = SCREEN_WIDTH;
+	remove_wlist(&walls, 1);
 	while (!data->quit)
 	{
 		i = 0;
-	while (i < 10)
+	while (walls)
 	{	
-		draw_2dwall(data, walls[i]);
-		i++;
+		draw_2dwall(data, walls->wall);
+		walls = walls->next;
 	}
 	draw_2dwall(data, (t_wall){(t_vertex){(220), 50}, (t_vertex){270, 300}, (t_vertex){0, 0}});
 	data->pixels[45 + 45 * SCREEN_WIDTH] = 0xff;
@@ -95,5 +99,6 @@ void			game_loop(t_data *data)
 		SDL_RenderCopy(data->renderer, data->texture, NULL, NULL);
 		SDL_RenderPresent(data->renderer);
 		ft_bzero(data->pixels, (SCREEN_WIDTH * SCREEN_HEIGHT + 1) * 4);
+		walls = head;
 	}
 }
