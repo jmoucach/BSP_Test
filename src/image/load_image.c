@@ -6,16 +6,16 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 09:42:14 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/11/11 17:48:40 by jmoucach         ###   ########.fr       */
+/*   Updated: 2019/12/02 12:28:27 by acostaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../hdr/wolf3d.h"
 
-Uint32			get_pixel(SDL_Surface *s, int x, int y)
+Uint32				get_pixel(SDL_Surface *s, int x, int y)
 {
-	int		bpp;
-	Uint8	*p;
+	int				bpp;
+	Uint8			*p;
 
 	bpp = s->format->BytesPerPixel;
 	p = s->pixels + y * s->pitch + x * bpp;
@@ -29,11 +29,34 @@ Uint32			get_pixel(SDL_Surface *s, int x, int y)
 		return (*(Uint32*)p);
 }
 
-SDL_Surface		*loadimage(char *path)
+void				free_png_img(t_img png)
 {
-	SDL_Surface *loadedsurface;
+	unsigned int	i;
 
-	loadedsurface = SDL_LoadBMP(path);
+	i = 0;
+	while (i < png.height)
+	{
+		free(png.pixels[i]);
+		i++;
+	}
+	free(png.pixels);
+}
+
+SDL_Surface			*loadimage(char *path)
+{
+	SDL_Surface		*loadedsurface;
+	t_img			png;
+	int				h;
+
+	if (parse_png(path, &png) == PB)
+		return (NULL);
+	loadedsurface = SDL_CreateRGBSurface(0, png.width, png.height, 32,
+			0xff000000, 0x00ff0000, 0x000000ff00, 0x000000ff);
+	h = -1;
+	while (++h < (int)png.height)
+		ft_memcpy(loadedsurface->pixels + png.width * h * 4,
+								png.pixels[h], png.width * 4);
+	free_png_img(png);
 	if (!loadedsurface)
 	{
 		ft_putstr_fd("Couldn't load image:", 2);
@@ -45,24 +68,24 @@ SDL_Surface		*loadimage(char *path)
 	return (loadedsurface);
 }
 
-short			loadmedia(t_data *data)
+short				loadmedia(t_data *data)
 {
-	data->surface[0] = loadimage("pics/redbrick.bmp");
+	data->surface[0] = loadimage("pics/2.png");
 	if (!data->surface[0])
 		return (0);
-	data->surface[1] = loadimage("pics/bluestone.bmp");
+	data->surface[1] = loadimage("pics/3.png");
 	if (!data->surface[1])
 		return (0);
-	data->surface[2] = loadimage("pics/greystone.bmp");
+	data->surface[2] = loadimage("pics/5.png");
 	if (!data->surface[2])
 		return (0);
-	data->surface[3] = loadimage("pics/mossy.bmp");
+	data->surface[3] = loadimage("pics/6.png");
 	if (!data->surface[3])
 		return (0);
-	data->surface[4] = loadimage("pics/tile2.bmp");
+	data->surface[4] = loadimage("pics/floor.png");
 	if (!data->surface[4])
 		return (0);
-	data->surface[5] = loadimage("pics/wood.bmp");
+	data->surface[5] = loadimage("pics/roof.png");
 	if (!data->surface[5])
 		return (0);
 	return (1);
