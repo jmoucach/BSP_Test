@@ -6,7 +6,7 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 09:17:05 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/02 14:22:40 by jmoucach         ###   ########.fr       */
+/*   Updated: 2019/12/03 16:41:48 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@
 # define SCREEN_WIDTH 1280
 # define SCREEN_HEIGHT 720
 
-# define C_FRONT 1;
-# define C_BACK -1;
-# define C_SPANNING 0;
+# define C_FRONT 1
+# define C_BACK -1
+# define C_SPANNING 0
+# define C_ALIGN 2
 
 typedef struct s_wall
 {
@@ -52,6 +53,10 @@ typedef struct s_BSPNode
 }				t_BSPNode;
 
 
+t_wall create_emptywall(void);
+t_wlist *dup_wlist(t_wlist *l);
+t_wall create_wall(t_vertex start, t_vertex end, t_vertex normal);
+t_vertex wall_wall_intersection(t_wall w1, t_wall w2);
 void remove_wlist(t_wlist **list, int id);
 void add_wlist(t_wlist **list, t_wlist *new);
 t_wlist *new_wlist(t_wall wall, int id);
@@ -63,7 +68,12 @@ t_vertex create_vertex(double x, double y);
 t_vertex unit_vertex(t_vertex v);
 t_vertex perp_vertex(t_vertex v);
 t_vertex substract_vertex(t_vertex v1, t_vertex v2);
-void draw_2dwall(t_data *data, t_wall wall);
+void draw_2dwall(t_data *data, t_wall wall, int color);
 
+int choose_best_splitter(t_wlist *list);
+int get_splitter_score(t_wlist *candidate, t_wlist *list);
+void splitwall(t_wall wall, t_wall splitter, t_wlist **frontsplit,
+	t_wlist **backsplit);
+t_BSPNode *bspcompiler(t_wlist *walls);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/11 14:38:52 by acostaz           #+#    #+#              #
-#    Updated: 2019/12/02 14:26:14 by jmoucach         ###   ########.fr        #
+#    Updated: 2019/12/03 16:41:13 by jmoucach         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,11 @@ SRC_NAME= init/main.c\
 	 vertex/vertex_basics.c\
 	 BSP/classify.c\
 	 BSP/new_wlist.c\
-	 BSP/IO_wlist.c
+	 BSP/io_wlist.c\
+	 BSP/bestsplitter.c\
+	 BSP/splitwall.c\
+	 BSP/bsp_compiler.c\
+	 BSP/create_wall.c
 
 SRC_DIR = src
 BUILD_DIR = obj

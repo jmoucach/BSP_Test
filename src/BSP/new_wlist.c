@@ -6,7 +6,7 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 13:51:48 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/02 14:23:01 by jmoucach         ###   ########.fr       */
+/*   Updated: 2019/12/03 15:18:37 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,17 @@ t_wlist *new_wlist(t_wall wall, int id)
 	new->next = NULL;
 	new->prev = NULL;
 	return (new);
+}
+
+t_wlist *dup_wlist(t_wlist *l)
+{
+	t_wlist *dup;
+
+	if (!(dup = (t_wlist*)malloc(sizeof(t_wlist))))
+		return (NULL);
+	dup->id = l->id;
+	dup->wall = create_wall(l->wall.start, l->wall.end, l->wall.normal);
+	dup->next = NULL;
+	dup->prev = NULL;
+	return (dup);
 }
