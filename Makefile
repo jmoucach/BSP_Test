@@ -6,7 +6,7 @@
 #    By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/11 14:38:52 by acostaz           #+#    #+#              #
-#    Updated: 2019/12/03 16:41:13 by jmoucach         ###   ########.fr        #
+#    Updated: 2019/12/04 15:44:18 by acostaz          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,8 @@ SRC_NAME= init/main.c\
 	 BSP/bestsplitter.c\
 	 BSP/splitwall.c\
 	 BSP/bsp_compiler.c\
-	 BSP/create_wall.c
+	 BSP/create_wall.c\
+	 BSP/make_some_walls.c
 
 SRC_DIR = src
 BUILD_DIR = obj

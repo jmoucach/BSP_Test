@@ -6,7 +6,7 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 18:07:10 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/04 13:47:19 by acostaz          ###   ########.fr       */
+/*   Updated: 2019/12/04 15:50:43 by acostaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,16 @@ void			game_loop(t_data *data)
 	int			width;
 	double		time;
 	t_wlist		*walls;
-	t_wlist *head;
-	t_wlist *tmp;
-	t_vertex	unit;
+//	t_wlist *head;
+//	t_wlist *tmp;
+//	t_vertex	unit;
 	t_BSPNode	*bsp;
 	int i=0;
 
 	walls = NULL;
 
-	while (i < 10)
+	make_some_walls(&walls);
+/*	while (i < 10)
 	{
 		tmp  = new_wlist((t_wall){(t_vertex){(i+1)*50, 50}, (t_vertex){(i+1)*50, 500}, (t_vertex){0, 0}}, i);
 		unit = unit_vertex(substract_vertex(tmp->wall.end, tmp->wall.start));
@@ -76,28 +77,31 @@ void			game_loop(t_data *data)
 		add_wlist(&walls, tmp);
 		i++;
 	}
-	tmp = new_wlist((t_wall){(t_vertex){(220), 50}, (t_vertex){270, 300}, (t_vertex){0, 0}}, i);
+	tmp = new_wlist((t_wall){(t_vertex){(220), 50}, (t_vertex){50, 300}, (t_vertex){0, 0}}, i);
 	unit = unit_vertex(substract_vertex(tmp->wall.end, tmp->wall.start));
 		tmp->wall.normal = perp_vertex(unit);
-		add_wlist(&walls, tmp);
+		add_wlist(&walls, tmp);*/
 	bsp = bspcompiler(walls);
-	t_vertex doot = wall_wall_intersection((t_wall){(t_vertex){220, 50}, (t_vertex){270, 300}, (t_vertex){0, 0}}, (t_wall){(t_vertex){270, 50}, (t_vertex){220, 300}, (t_vertex){0, 0}});
-	printf("intersection: %f %f\n", doot.x, doot.y);
-	head = walls;
+//	head = walls;
 	width = SCREEN_WIDTH;
-	int best = choose_best_splitter(walls);
+//	int best = choose_best_splitter(walls);
 	while (!data->quit)
 	{
 		i = 0;
-	while (walls)
+/*	while (walls)
 	{
 		if (walls->id == best)
 			draw_2dwall(data, walls->wall, 0xff0000);
 		else
 			draw_2dwall(data, walls->wall, 0xffffff);
 		walls = walls->next;
-	}
-	draw_bin_tree(data, bsp, 1, 0);
+	}*/
+
+	t_point	point;
+	point.x = 3 * SCREEN_WIDTH / 4;
+	point.y = 50;
+	draw_walls_from_bsp(bsp, data, 0);
+	draw_bin_tree(data, bsp, 0, point);
 	data->pixels[45 + 45 * SCREEN_WIDTH] = 0xff;
 		data->ftime = (SDL_GetTicks() - time) / 1000;
 		time = SDL_GetTicks();
@@ -110,6 +114,6 @@ void			game_loop(t_data *data)
 		SDL_RenderCopy(data->renderer, data->texture, NULL, NULL);
 		SDL_RenderPresent(data->renderer);
 		ft_bzero(data->pixels, (SCREEN_WIDTH * SCREEN_HEIGHT + 1) * 4);
-		walls = head;
+//		walls = head;
 	}
 }

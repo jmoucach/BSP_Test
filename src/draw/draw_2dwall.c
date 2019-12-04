@@ -6,68 +6,101 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 09:25:28 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/04 14:03:54 by acostaz          ###   ########.fr       */
+/*   Updated: 2019/12/04 15:42:00 by acostaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../hdr/doom.h"
 
-void	draw_tree_line(t_data *data, int dir, int level, int width)
+t_point	draw_node(t_data *data, int level, int width, t_point p)
 {
 	Uint32	*pix;
 	t_point	point;
 	t_point	point2;
+	int		color;
 
+	if (level == 0)
+		color = 0xffffff;
+	if (level == 1)
+		color = 0xff0000;
+	if (level == 2)
+		color = 0x00ff00;
+	if (level == 3)
+		color = 0x0000ff;
+	if (level == 4)
+		color = 0xff00ff;
+	if (level == 5)
+		color = 0xffff00;
 	pix = data->pixels;
-	point.x = SCREEN_WIDTH / 2 + width * 20 * (7 - level) + 5;
-	point.y = 50 + level * 20 + 5;
-	point2.x = point.x + dir * 20 * (7 - level - 1);
-	point2.y = point.y + 20;
-	if (dir == 1)
-		drawline(point, point2, data, 0x00ff00);
-	else
-		drawline(point, point2, data, 0xff0000);
+	point.x = p.x - width * 15 * (7 - level);
+	point.y = p.y + 30;
+	point2.x = p.x + 5;
+	point2.y = p.y + 5;
+	p.x -= 5;
+	p.y -= 5;
+	draw_rect_to_sdl(p, point2, data, color);
+	return (point);
 }
 
-void	draw_node(t_data *data, int level, int width)
+void	draw_bin_tree(t_data *data, t_BSPNode *node, int level, t_point point)
 {
-	Uint32	*pix;
-	t_point	point;
-	t_point	point2;
+	t_point	p;
 
-	pix = data->pixels;
-	point.x = SCREEN_WIDTH / 2 + width * 20 * (7 - level);
-	point.y = 50 + level * 20;
-	point2.x = point.x + 10;
-	point2.y = point.y + 10;
-	draw_rect_to_sdl(point, point2, data, 0xffffff);
-}
-
-void	draw_bin_tree(t_data *data, t_BSPNode *node, int level, int width)
-{
-	draw_node(data, level, width);
 	if (node->front == NULL && node->back == NULL)
+	{
+		p = draw_node(data, level, 1, point);
 		return ;
+	}
 	if (node->front != NULL)
 	{
-		draw_tree_line(data, 1, level, width);
-		draw_bin_tree(data, node->front, level + 1, width + 1);
+		p = draw_node(data, level, 1, point);
+		drawline(p, point, data, 0x00ff00);
+		draw_bin_tree(data, node->front, level + 1, p);
 	}
 	if (node->back != NULL)
 	{
-		draw_tree_line(data, -1, level, width);
-		draw_bin_tree(data, node->back, level + 1, width - 1);
+		p = draw_node(data, level, -1, point);
+		drawline(p, point, data, 0xff0000);
+		draw_bin_tree(data, node->back, level + 1, p);
 	}
+}
+
+void	draw_walls_from_bsp(t_BSPNode *bsp, t_data *data, int level)
+{
+	int	color;
+
+	if (level == 0)
+		color = 0xffffff;
+	if (level == 1)
+		color = 0xff0000;
+	if (level == 2)
+		color = 0x00ff00;
+	if (level == 3)
+		color = 0x0000ff;
+	if (level == 4)
+		color = 0xff00ff;
+	if (level == 5)
+		color = 0xffff00;
+	draw_2dwall(data, bsp->wall, color);	
+	if (bsp->front == NULL && bsp->back == NULL)
+		return ;
+	if (bsp->front != NULL)
+		draw_walls_from_bsp(bsp->front, data, level + 1);
+	if (bsp->back != NULL)
+		draw_walls_from_bsp(bsp->back, data, level + 1);
 }
 
 void draw_2dwall(t_data *data, t_wall wall, int color)
 {
 	t_point p1;
 	t_point p2;
-
+	t_point mid;
 	p1.x = wall.start.x;
 	p1.y = wall.start.y;
 	p2.x = wall.end.x;
 	p2.y = wall.end.y;
+	mid.x = (p1.x + p2.x) / 2;
+	mid.y = (p1.y + p2.y) / 2;
 	drawline(p1, p2, data, color);
+	drawline(mid, (t_point){mid.x + wall.normal.x *20, mid.y + wall.normal.y * 20}, data, 0xff);
 }
