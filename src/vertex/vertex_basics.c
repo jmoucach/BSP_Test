@@ -6,7 +6,7 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 09:51:08 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/02 14:13:24 by jmoucach         ###   ########.fr       */
+/*   Updated: 2019/12/04 16:42:19 by acostaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,16 @@ t_vertex unit_vertex(t_vertex v)
 	double mag;
 
 	mag = sqrt(v.x * v.x + v.y * v.y);
-	unit.x = v.x / mag;
-	unit.y = v.y / mag;
+	if (mag == 0)
+	{
+		unit.x = 0;
+		unit.y = 0;
+	}
+	else
+	{
+		unit.x = v.x / mag;
+		unit.y = v.y / mag;
+	}
 	return unit;
 }
 

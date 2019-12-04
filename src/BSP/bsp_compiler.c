@@ -6,7 +6,7 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 11:12:12 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/04 12:37:05 by acostaz          ###   ########.fr       */
+/*   Updated: 2019/12/04 16:32:59 by acostaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ t_BSPNode *bspcompiler(t_wlist *walls)
 			else
 			{
 				splitwall(walls->wall, splitter->wall, &front_split, &back_split);
+				front_split->id = walls->id;
+				back_split->id = walls->id;
 				add_wlist(&front, dup_wlist(front_split));
 				add_wlist(&back, dup_wlist(back_split));
 			}

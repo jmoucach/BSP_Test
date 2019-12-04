@@ -6,7 +6,7 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 10:38:35 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/04 15:42:02 by acostaz          ###   ########.fr       */
+/*   Updated: 2019/12/04 16:26:49 by acostaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int choose_best_splitter(t_wlist *list)
 	while (list)
 	{
 		score = get_splitter_score(list, head);
+		ft_printf("score = %d, id = %d\n", score, list->id);
 		if (score < best_score || best_score == -1)
 		{
 			best_score = score;

@@ -6,7 +6,7 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 09:25:28 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/04 15:42:00 by acostaz          ###   ########.fr       */
+/*   Updated: 2019/12/04 16:23:58 by acostaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ t_point	draw_node(t_data *data, int level, int width, t_point p)
 		color = 0xff00ff;
 	if (level == 5)
 		color = 0xffff00;
+	if (level == 6)
+		color = 0x00ffff;
+	if (level == 7)
+		color = 0xAAAAAA;
 	pix = data->pixels;
 	point.x = p.x - width * 15 * (7 - level);
 	point.y = p.y + 30;
@@ -81,6 +85,10 @@ void	draw_walls_from_bsp(t_BSPNode *bsp, t_data *data, int level)
 		color = 0xff00ff;
 	if (level == 5)
 		color = 0xffff00;
+	if (level == 6)
+		color = 0x00ffff;
+	if (level == 7)
+		color = 0xAAAAAA;
 	draw_2dwall(data, bsp->wall, color);	
 	if (bsp->front == NULL && bsp->back == NULL)
 		return ;

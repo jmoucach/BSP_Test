@@ -6,7 +6,7 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 18:07:10 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/04 15:50:43 by acostaz          ###   ########.fr       */
+/*   Updated: 2019/12/04 16:16:03 by acostaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void			game_loop(t_data *data)
 	point.y = 50;
 	draw_walls_from_bsp(bsp, data, 0);
 	draw_bin_tree(data, bsp, 0, point);
-	data->pixels[45 + 45 * SCREEN_WIDTH] = 0xff;
+	data->pixels[350 + 300 * SCREEN_WIDTH] = 0xffffff;
 		data->ftime = (SDL_GetTicks() - time) / 1000;
 		time = SDL_GetTicks();
 		SDL_PumpEvents();

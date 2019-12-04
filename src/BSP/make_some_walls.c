@@ -6,7 +6,7 @@
 /*   By: acostaz <acostaz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 15:41:57 by acostaz           #+#    #+#             */
-/*   Updated: 2019/12/04 16:00:30 by acostaz          ###   ########.fr       */
+/*   Updated: 2019/12/04 16:50:52 by acostaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,17 @@ void	make_some_walls(t_wlist **walls)
  	unit = unit_vertex(substract_vertex(wall.end, wall.start));
 	wall.normal = perp_vertex(unit);
 	tmp  = new_wlist(wall, 9);
+	add_wlist(walls, tmp);
+	wall.start = create_vertex(400, 300);
+	wall.end = create_vertex(290, 200);
+ 	unit = unit_vertex(substract_vertex(wall.end, wall.start));
+	wall.normal = perp_vertex(unit);
+	tmp  = new_wlist(wall, 10);
+	add_wlist(walls, tmp);
+	wall.start = create_vertex(290, 200);
+	wall.end = create_vertex(300, 400);
+ 	unit = unit_vertex(substract_vertex(wall.end, wall.start));
+	wall.normal = perp_vertex(unit);
+	tmp  = new_wlist(wall, 11);
 	add_wlist(walls, tmp);
 }
