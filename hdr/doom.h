@@ -6,14 +6,14 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 09:17:05 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/03 16:41:48 by jmoucach         ###   ########.fr       */
+/*   Updated: 2019/12/04 13:36:51 by acostaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DOOM_H
 # define DOOM_H
 
-# include "SDL.h"
+# include "/Users/acostaz/.brew/include/SDL2/SDL.h"
 # include "struct.h"
 # include "proto.h"
 # include "png.h"
@@ -69,6 +69,7 @@ t_vertex unit_vertex(t_vertex v);
 t_vertex perp_vertex(t_vertex v);
 t_vertex substract_vertex(t_vertex v1, t_vertex v2);
 void draw_2dwall(t_data *data, t_wall wall, int color);
+void	draw_bin_tree(t_data *data, t_BSPNode *node, int level, int width);
 
 int choose_best_splitter(t_wlist *list);
 int get_splitter_score(t_wlist *candidate, t_wlist *list);

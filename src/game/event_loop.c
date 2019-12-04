@@ -6,7 +6,7 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 18:07:10 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/03 16:47:50 by jmoucach         ###   ########.fr       */
+/*   Updated: 2019/12/04 13:47:19 by acostaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void			game_loop(t_data *data)
 	t_wlist *head;
 	t_wlist *tmp;
 	t_vertex	unit;
+	t_BSPNode	*bsp;
 	int i=0;
 
 	walls = NULL;
@@ -79,6 +80,7 @@ void			game_loop(t_data *data)
 	unit = unit_vertex(substract_vertex(tmp->wall.end, tmp->wall.start));
 		tmp->wall.normal = perp_vertex(unit);
 		add_wlist(&walls, tmp);
+	bsp = bspcompiler(walls);
 	t_vertex doot = wall_wall_intersection((t_wall){(t_vertex){220, 50}, (t_vertex){270, 300}, (t_vertex){0, 0}}, (t_wall){(t_vertex){270, 50}, (t_vertex){220, 300}, (t_vertex){0, 0}});
 	printf("intersection: %f %f\n", doot.x, doot.y);
 	head = walls;
@@ -95,6 +97,7 @@ void			game_loop(t_data *data)
 			draw_2dwall(data, walls->wall, 0xffffff);
 		walls = walls->next;
 	}
+	draw_bin_tree(data, bsp, 1, 0);
 	data->pixels[45 + 45 * SCREEN_WIDTH] = 0xff;
 		data->ftime = (SDL_GetTicks() - time) / 1000;
 		time = SDL_GetTicks();
@@ -109,6 +112,4 @@ void			game_loop(t_data *data)
 		ft_bzero(data->pixels, (SCREEN_WIDTH * SCREEN_HEIGHT + 1) * 4);
 		walls = head;
 	}
-	bspcompiler(walls);
-
 }
