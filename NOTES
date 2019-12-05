@@ -1,0 +1,3 @@
+Affichage actuel : essai de 3D (incorrect) en premier plan
+Sur la map : les murs en GRIS sont ceux qui sont gardes pour le calcul.
+			Tous ceux qui ne sont pas en gris sont ignores pour l'affichage.
