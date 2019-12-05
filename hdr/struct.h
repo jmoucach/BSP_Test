@@ -104,6 +104,7 @@ typedef struct		s_data
 	t_point			msize;
 	short			toggle_minimap;
 	short			quit;
+	char			filled[1280];
 }					t_data;
 
 #endif

@@ -52,7 +52,8 @@ SRC_NAME= init/main.c\
 	 BSP/splitwall.c\
 	 BSP/bsp_compiler.c\
 	 BSP/create_wall.c\
-	 BSP/make_some_walls.c
+	 BSP/make_some_walls.c\
+	 draw/draw_3dwalls.c
 
 SRC_DIR = src
 BUILD_DIR = obj

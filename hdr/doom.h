@@ -13,7 +13,7 @@
 #ifndef DOOM_H
 # define DOOM_H
 
-# include "/Users/acostaz/.brew/include/SDL2/SDL.h"
+# include "/usr/include/SDL2/SDL.h"
 # include "struct.h"
 # include "proto.h"
 # include "png.h"
@@ -23,7 +23,7 @@
 # include <math.h>
 
 # define SCREEN_WIDTH 1280
-# define SCREEN_HEIGHT 720
+# define SCREEN_HEIGHT 800
 
 # define C_FRONT 1
 # define C_BACK -1
@@ -48,6 +48,7 @@ typedef struct s_wlist
 typedef struct s_BSPNode
 {
 	t_wall		wall;
+	struct s_BSPNode *parent;
 	struct s_BSPNode *front;
 	struct s_BSPNode *back;
 }				t_BSPNode;
@@ -77,7 +78,8 @@ int get_splitter_score(t_wlist *candidate, t_wlist *list);
 void splitwall(t_wall wall, t_wall splitter, t_wlist **frontsplit,
 	t_wlist **backsplit);
 t_BSPNode *bspcompiler(t_wlist *walls);
-
+void	get_bsp_parents(t_BSPNode *bsp);
+void	draw_3d_walls(t_data *data, t_BSPNode *bsp);
 
 void	make_some_walls(t_wlist **walls);
 

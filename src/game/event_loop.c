@@ -64,7 +64,6 @@ void			game_loop(t_data *data)
 //	t_wlist *tmp;
 //	t_vertex	unit;
 	t_BSPNode	*bsp;
-	int i=0;
 
 	walls = NULL;
 
@@ -82,12 +81,12 @@ void			game_loop(t_data *data)
 		tmp->wall.normal = perp_vertex(unit);
 		add_wlist(&walls, tmp);*/
 	bsp = bspcompiler(walls);
+	get_bsp_parents(bsp);
 //	head = walls;
 	width = SCREEN_WIDTH;
 //	int best = choose_best_splitter(walls);
 	while (!data->quit)
 	{
-		i = 0;
 /*	while (walls)
 	{
 		if (walls->id == best)
@@ -97,12 +96,16 @@ void			game_loop(t_data *data)
 		walls = walls->next;
 	}*/
 
-	t_point	point;
-	point.x = 3 * SCREEN_WIDTH / 4;
-	point.y = 50;
+	data->p.pos.x = 200;
+	data->p.pos.y = 220;
+	data->p.angle =  1 * M_PI / 2;
+	//t_point	point;
+	//point.x = 3 * SCREEN_WIDTH / 4;
+	//point.y = 50;
 	draw_walls_from_bsp(bsp, data, 0);
-	draw_bin_tree(data, bsp, 0, point);
-	data->pixels[350 + 300 * SCREEN_WIDTH] = 0xffffff;
+	draw_3d_walls(data, bsp);
+	//draw_bin_tree(data, bsp, 0, point);
+	data->pixels[(int)data->p.pos.x + (int)data->p.pos.y * SCREEN_WIDTH] = 0xffffff;
 		data->ftime = (SDL_GetTicks() - time) / 1000;
 		time = SDL_GetTicks();
 		SDL_PumpEvents();

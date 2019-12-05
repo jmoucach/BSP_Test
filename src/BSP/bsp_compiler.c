@@ -12,7 +12,23 @@
 
 #include "../../hdr/doom.h"
 
-t_BSPNode *bspcompiler(t_wlist *walls)
+void		get_bsp_parents(t_BSPNode *bsp)
+{
+	if (bsp->front == NULL && bsp->front == NULL)
+		return ;
+	if (bsp->front != NULL)
+	{
+		bsp->front->parent = bsp;
+		get_bsp_parents(bsp->front);
+	}
+	if (bsp->back != NULL)
+	{
+		bsp->back->parent = bsp;
+		get_bsp_parents(bsp->back);
+	}
+}
+
+t_BSPNode	*bspcompiler(t_wlist *walls)
 {
 	t_wlist *splitter;
 	t_wlist *head;
@@ -27,7 +43,7 @@ t_BSPNode *bspcompiler(t_wlist *walls)
 
 	if (!(node = (t_BSPNode*)malloc(sizeof(t_BSPNode))))
 		return (NULL);
-
+	node->parent = NULL;
 	front_split = new_wlist(create_emptywall(),0);
 	back_split = new_wlist(create_emptywall(),0);
 		front = NULL;

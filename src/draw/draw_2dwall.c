@@ -14,7 +14,6 @@
 
 t_point	draw_node(t_data *data, int level, int width, t_point p)
 {
-	Uint32	*pix;
 	t_point	point;
 	t_point	point2;
 	int		color;
@@ -35,7 +34,6 @@ t_point	draw_node(t_data *data, int level, int width, t_point p)
 		color = 0x00ffff;
 	if (level == 7)
 		color = 0xAAAAAA;
-	pix = data->pixels;
 	point.x = p.x - width * 15 * (7 - level);
 	point.y = p.y + 30;
 	point2.x = p.x + 5;

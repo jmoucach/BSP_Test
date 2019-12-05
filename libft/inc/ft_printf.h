@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <limits.h>
 # include <unistd.h>
+# include <stdint.h>
 
 # define BUFF_SIZE_P 500
 # define MINUS 0

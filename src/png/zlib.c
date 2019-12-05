@@ -18,7 +18,6 @@ int					process_zlib_headers(char **data, size_t *len)
 	char			cmf;
 	char			flg;
 	char			cm;
-	char			cinfo;
 	char			fdict;
 
 	if (*len < 2)
@@ -26,7 +25,6 @@ int					process_zlib_headers(char **data, size_t *len)
 	cmf = (*data)[0];
 	flg = (*data)[1];
 	cm = cmf & 0xF;
-	cinfo = cmf & 0x0F;
 	fdict = flg & 0x04;
 	*len -= 2;
 	*data += 2;

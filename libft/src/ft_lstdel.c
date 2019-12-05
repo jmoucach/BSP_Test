@@ -14,10 +14,8 @@
 
 void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
 {
-	t_list	*stock;
 	t_list	*temp;
 
-	stock = *alst;
 	while (*alst != NULL)
 	{
 		temp = (*alst)->next;
@@ -25,5 +23,4 @@ void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
 		free(*alst);
 		*alst = temp;
 	}
-	stock = NULL;
 }

@@ -18,7 +18,7 @@ t_vertex substract_vertex(t_vertex v1, t_vertex v2)
 
 	out.x = v1.x - v2.x;
 	out.y = v1.y - v2.y;
-	 return out;
+	return out;
 }
 
 t_vertex add_vertex(t_vertex v1, t_vertex v2)
