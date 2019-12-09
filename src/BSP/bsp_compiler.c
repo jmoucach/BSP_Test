@@ -6,29 +6,13 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 11:12:12 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/04 16:32:59 by acostaz          ###   ########.fr       */
+/*   Updated: 2019/12/09 11:05:55 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../hdr/doom.h"
 
-void		get_bsp_parents(t_BSPNode *bsp)
-{
-	if (bsp->front == NULL && bsp->front == NULL)
-		return ;
-	if (bsp->front != NULL)
-	{
-		bsp->front->parent = bsp;
-		get_bsp_parents(bsp->front);
-	}
-	if (bsp->back != NULL)
-	{
-		bsp->back->parent = bsp;
-		get_bsp_parents(bsp->back);
-	}
-}
-
-t_BSPNode	*bspcompiler(t_wlist *walls)
+void bspcompiler(t_wlist *walls, t_data *data)
 {
 	t_wlist *splitter;
 	t_wlist *head;
@@ -43,12 +27,12 @@ t_BSPNode	*bspcompiler(t_wlist *walls)
 
 	if (!(node = (t_BSPNode*)malloc(sizeof(t_BSPNode))))
 		return (NULL);
-	node->parent = NULL;
+	
 	front_split = new_wlist(create_emptywall(),0);
 	back_split = new_wlist(create_emptywall(),0);
-		front = NULL;
-		back = NULL;
-		splitter = NULL;
+	front = NULL;
+	back = NULL;
+	splitter = NULL;
 	head = walls;
 	id = choose_best_splitter(walls);
 	while (walls)
@@ -60,7 +44,7 @@ t_BSPNode	*bspcompiler(t_wlist *walls)
 		}
 		walls = walls->next;
 	}
-	node->wall = create_wall(walls->wall.start, walls->wall.end, walls->wall.normal);
+	node->wall = create_wall(splitter->wall.start, splitter->wall.end, splitter->wall.normal);
 	walls = head;
 	while (walls)
 	{

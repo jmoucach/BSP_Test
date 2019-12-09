@@ -6,7 +6,7 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 13:51:48 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/03 15:18:37 by jmoucach         ###   ########.fr       */
+/*   Updated: 2019/12/09 14:58:42 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ t_wlist *new_wlist(t_wall wall, int id)
 	new->wall.start = create_vertex(wall.start.x, wall.start.y);
 	new->wall.end = create_vertex(wall.end.x, wall.end.y);
 	new->wall.normal = create_vertex(wall.normal.x, wall.normal.y);
+	new->isUsed = 0;
 	new->next = NULL;
-	new->prev = NULL;
 	return (new);
 }
 
@@ -34,8 +34,8 @@ t_wlist *dup_wlist(t_wlist *l)
 	if (!(dup = (t_wlist*)malloc(sizeof(t_wlist))))
 		return (NULL);
 	dup->id = l->id;
+	dup->isUsed = l->isUsed;
 	dup->wall = create_wall(l->wall.start, l->wall.end, l->wall.normal);
 	dup->next = NULL;
-	dup->prev = NULL;
 	return (dup);
 }

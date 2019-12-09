@@ -6,7 +6,7 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 14:19:39 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/02 13:01:52 by jmoucach         ###   ########.fr       */
+/*   Updated: 2019/12/09 15:29:46 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,19 @@ typedef struct		s_data
 	double			ftime;
 	int				yaw;
 	t_player		p;
-	double			sensitivity;
+	//
+	struct s_BSPNode *Nodes;
+	int NumberOfNodes;
+	int MaxNodes;
+
+	struct s_wall *Walls;
+	int NumberOfWalls;
+	int MaxWalls;
+
+	struct s_leaf *Leaves;
+	int NumberOfLeaves;
+	int MaxLeaves;
+	//
 	int				**map;
 	t_point			msize;
 	short			toggle_minimap;
