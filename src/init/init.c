@@ -6,7 +6,7 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 17:57:11 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/09 14:25:52 by jmoucach         ###   ########.fr       */
+/*   Updated: 2019/12/11 19:20:18 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,9 @@ void			set_values(t_data *data)
 	data->MaxNodes = 10;
 	data->MaxLeaves = 10;
 	data->MaxWalls = 10;
+	data->NumberOfWalls = 0;
+	data->NumberOfLeaves = 0;
+	data->NumberOfNodes = 0;
 	data->yaw = 0;
 	if (!(data->surface = (SDL_Surface **)malloc(sizeof(SDL_Surface *) * 6)))
 		exit(EXIT_FAILURE);

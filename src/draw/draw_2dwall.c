@@ -6,7 +6,7 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 09:25:28 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/09 16:22:36 by jmoucach         ###   ########.fr       */
+/*   Updated: 2019/12/12 15:14:52 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,11 @@ void	draw_walls_from_bsp(t_data *data)
 	while (i < data->NumberOfLeaves)
 	{
 		j = 0;
-		printf("leaf:%d\n", i);
+		printf("leaf:%d leaf start:%d end:%d\n", i, data->Leaves[i].start, data->Leaves[i].end);
 		while (data->Leaves[i].start + j < data->Leaves[i].end)
 		{
-			printf("wall index:%ld\n",data->Leaves[i].start + j);
+			printf("wall index:%d\n",data->Leaves[i].start + j);
+			printf("start:|X:%f, Y:%f| end:|X:%f, Y:%f|\n", data->Walls[data->Leaves[i].start + j].start.x,data->Walls[data->Leaves[i].start + j].start.y, data->Walls[data->Leaves[i].start + j].end.x, data->Walls[data->Leaves[i].start + j].end.y);
 			draw_2dwall(data, data->Walls[data->Leaves[i].start + j], color);
 			j++;
 		}
@@ -94,12 +95,14 @@ void draw_2dwall(t_data *data, t_wall wall, int color)
 	t_point p1;
 	t_point p2;
 	t_point mid;
+
 	p1.x = wall.start.x;
 	p1.y = wall.start.y;
 	p2.x = wall.end.x;
 	p2.y = wall.end.y;
 	mid.x = (p1.x + p2.x) / 2;
 	mid.y = (p1.y + p2.y) / 2;
+	printf("p1:X:%d, Y:%d| p2:X:%d, Y:%d\n", p1.x, p1.y, p2.x, p2.y);
 	drawline(p1, p2, data, color);
 	drawline(mid, (t_point){mid.x + wall.normal.x *20, mid.y + wall.normal.y * 20}, data, 0xff);
 }

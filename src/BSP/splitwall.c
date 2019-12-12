@@ -6,7 +6,7 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 12:12:50 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/04 16:32:31 by acostaz          ###   ########.fr       */
+/*   Updated: 2019/12/11 16:02:02 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,26 @@ t_vertex wall_wall_intersection(t_wall w1, t_wall w2)
 	return (intersection);
 }
 
-void splitwall(t_wall wall, t_wall splitter, t_wlist **frontsplit,
+void splitwall(t_wlist *list, t_wall splitter, t_wlist **frontsplit,
 	t_wlist **backsplit)
 {
 	t_vertex point;
 	int result;
 
-	point = wall_wall_intersection(wall, splitter);
-	result = classifypoint(wall.start, splitter);
+	point = wall_wall_intersection(list->wall, splitter);
+	result = classifypoint(list->wall.start, splitter);
+	(*frontsplit)->id = list->id;
+	(*frontsplit)->isUsed = list->isUsed;
+	(*backsplit)->id = list->id;
+	(*backsplit)->isUsed = list->isUsed;
 	if (result == C_FRONT)
 	{
-		(*frontsplit)->wall = create_wall(wall.start, point, wall.normal);
-		(*backsplit)->wall = create_wall(point, wall.end, wall.normal);
+		(*frontsplit)->wall = create_wall(list->wall.start, point, list->wall.normal);
+		(*backsplit)->wall = create_wall(point, list->wall.end, list->wall.normal);
 	}
 	else
 	{
-		(*backsplit)->wall = create_wall(wall.start, point, wall.normal);
-		(*frontsplit)->wall = create_wall(point, wall.end, wall.normal);
+		(*backsplit)->wall = create_wall(list->wall.start, point, list->wall.normal);
+		(*frontsplit)->wall = create_wall(point, list->wall.end, list->wall.normal);
 	}
 }

@@ -1,42 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   io_wlist.c                                         :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/02 13:55:21 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/11 15:50:07 by jmoucach         ###   ########.fr       */
+/*   Created: 2019/12/11 15:23:27 by jmoucach          #+#    #+#             */
+/*   Updated: 2019/12/12 15:17:40 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../hdr/doom.h"
 
-void add_wlist(t_wlist **list, t_wlist *new)
+void *ft_realloc(void *ptr, size_t size)
 {
-	new->next = *list;
-	(*list) = new;
-}
+	char *new_ptr;
 
-void remove_wlist(t_wlist **list, int id)
-{
-	t_wlist *tmp;
-	t_wlist *prev;
-
-	tmp = *list;
-	if (tmp->id == id)
-	{
-		*list = tmp->next;
-		free(tmp);
-		return ;
-	}
-	while (tmp != NULL && tmp->id != id)
-	{
-		prev = tmp;
-		tmp = tmp->next;
-	}
-	if (tmp == NULL)
-		return ;
-	prev->next = tmp->next;
-	free(tmp);
+	if (!(new_ptr = malloc(size)))
+		return (NULL);
+	ft_bzero(new_ptr, size);
+	ft_memmove(new_ptr, ptr, size);
+	free(ptr);
+	return (new_ptr);
 }

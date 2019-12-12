@@ -6,7 +6,7 @@
 #    By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/11 14:38:52 by acostaz           #+#    #+#              #
-#    Updated: 2019/12/09 16:09:03 by jmoucach         ###   ########.fr        #
+#    Updated: 2019/12/11 16:08:29 by jmoucach         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,9 @@ SRC_NAME= init/main.c\
 	 BSP/new_bsp.c\
 	 BSP/create_wall.c\
 	 BSP/make_some_walls.c\
-	 BSP/increment.c
+	 BSP/increment.c\
+	 BSP/wlist_basics.c\
+	 BSP/utils.c
 	#  draw/draw_3dwalls.c
 
 SRC_DIR = src
@@ -77,7 +79,7 @@ $(NAME): $(OBJ)
 	@gcc $(FLAGS) -o $(NAME) $(OBJ) $(LIB) $(LIBFT) -lm
 	@echo "\033[32m[$(NAME)]: compiled\033[0m"
 
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(MLX) $(LIBFT)
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(LIBFT)
 	@mkdir -p $(SUBDIRS)
 	@echo "\033[2K [$(NAME)]: Compilation of $< \033[A"
 	@gcc $(CFLAGS) -I $(INC_DIR) -c $< -o $@

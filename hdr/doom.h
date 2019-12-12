@@ -6,7 +6,7 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 09:17:05 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/09 16:08:38 by jmoucach         ###   ########.fr       */
+/*   Updated: 2019/12/12 14:50:07 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,15 @@ typedef struct s_BSPNode
 {
 	t_wall		wall;
 	short isleaf;
-	long front;
-	long back;
+	int front;
+	int	 back;
 }				t_BSPNode;
 
 typedef struct s_leaf
 {
-	long start;
-	long end;
-	long PVS_index;
+	int start;
+	int end;
+	int PVS_index;
 }				t_leaf;
 
 
@@ -82,13 +82,16 @@ void	draw_bin_tree(t_data *data, t_BSPNode *node, int level, t_point point);
 
 int choose_best_splitter(t_wlist *list);
 int get_splitter_score(t_wlist *candidate, t_wlist *list);
-void splitwall(t_wall wall, t_wall splitter, t_wlist **frontsplit,
+void splitwall(t_wlist *list, t_wall splitter, t_wlist **frontsplit,
 	t_wlist **backsplit);
 t_BSPNode *bspcompiler(t_wlist *walls);
 void	draw_3d_walls(t_data *data, t_BSPNode *bsp);
 
+
+
 void	make_some_walls(t_wlist **walls);
 int get_wlist_length(t_wlist *list);
+void print_wlist(t_wlist *list);
 
 // increment.c
 void increment_nodes(t_data *data);
@@ -97,7 +100,8 @@ void increment_leaves(t_data *data);
 //
 
 //
-void new_bspcompiler(t_wlist *walls, long NodeId, t_data *data);
+void new_bspcompiler(t_wlist *walls, int NodeId, t_data *data);
+int count_unused(t_wlist *list);
 void *ft_realloc(void *ptr, size_t size);
 //
 

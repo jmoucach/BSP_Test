@@ -124,3 +124,62 @@ void BuildBspTree(long Node, POLYGON *PolyList)
 	}
 
 } // end function
+
+long SelectBestSplitter(POLYGON *PolyList)
+{
+	POLYGON *Splitter = PolyList;
+	POLYGON *CurrentPoly = NULL;
+	unsigned long BestScore = 1000000;
+	POLYGON *SelectedPoly = NULL;
+
+	while (Splitter != NULL)
+	{
+		if (Splitter->BeenUsedAsSplitter != true)
+		{
+			PLANE SplittersPlane;
+			SplittersPlane.Normal = Splitter->Normal;
+			SplittersPlane.PointOnPlane = *(D3DXVECTOR3 *)&Splitter->VertexList[0];
+			CurrentPoly = PolyList;
+			unsigned long score, splits, backfaces, frontfaces;
+			score = splits = backfaces = frontfaces = 0;
+
+			while (CurrentPoly != NULL)
+			{
+				int result = ClassifyPoly(&SplittersPlane, CurrentPoly);
+				switch (result)
+				{
+				case CP_ONPLANE:
+					break;
+				case CP_FRONT:
+					frontfaces++;
+					break;
+				case CP_BACK:
+					backfaces++;
+					break;
+				case CP_SPANNING:
+					splits++;
+					break;
+				default:
+					break;
+				} // switch
+
+				CurrentPoly = CurrentPoly->Next;
+			} // end while current poly
+
+			score = abs(frontfaces - backfaces) + (splits * 3);
+			if (score < BestScore)
+			{
+				BestScore = score;
+				SelectedPoly = Splitter;
+			}
+
+		} // end if this splitter has not been used yet
+		Splitter = Splitter->Next;
+	} // end while splitter != null
+
+	SelectedPoly->BeenUsedAsSplitter = true;
+	PlaneArray[NumberOfPlanes].PointOnPlane = *((D3DXVECTOR3 *)&SelectedPoly->VertexList[0]);
+	PlaneArray[NumberOfPlanes].Normal = SelectedPoly->Normal;
+	IncreaseNumberOfPlanes();
+	return (NumberOfPlanes - 1);
+} // End Function
