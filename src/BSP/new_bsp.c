@@ -6,7 +6,7 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 11:04:33 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/12 15:19:24 by jmoucach         ###   ########.fr       */
+/*   Updated: 2019/12/12 16:43:43 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void new_bspcompiler(t_wlist *walls, int NodeId, t_data *data)
 		}
 		walls = next;
 	}
-	walls =head;
+	walls = head;
 	int count = count_unused(front);
 	if (count == 0)
 	{

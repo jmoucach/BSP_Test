@@ -6,7 +6,7 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 15:03:28 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/02 13:01:46 by jmoucach         ###   ########.fr       */
+/*   Updated: 2019/12/12 17:30:14 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void			draw_minimap(t_data *data);
 
 void			handle_input2(t_data *data, const Uint8 *state);
 void			handle_input(t_data *data, const Uint8 *state);
-void			game_loop(t_data *data);
 
 /*
 ** Show player

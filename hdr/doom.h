@@ -6,7 +6,7 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 09:17:05 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/12 14:50:07 by jmoucach         ###   ########.fr       */
+/*   Updated: 2019/12/12 17:29:58 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_leaf
 	int PVS_index;
 }				t_leaf;
 
+void			game_loop(t_data *data, t_wlist *walls);
 
 t_wall create_emptywall(void);
 t_wlist *dup_wlist(t_wlist *l);

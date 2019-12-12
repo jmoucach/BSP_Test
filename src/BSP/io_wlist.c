@@ -6,7 +6,7 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 13:55:21 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/11 15:50:07 by jmoucach         ###   ########.fr       */
+/*   Updated: 2019/12/12 18:09:35 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,16 @@ void add_wlist(t_wlist **list, t_wlist *new)
 	new->next = *list;
 	(*list) = new;
 }
+/*
+void addback_wlist(t_wlist **list, t_wlist *new)
+{
+	t_wlist *head;
+
+	while (list)
+	{
+		list = list->next;
+	}
+}*/
 
 void remove_wlist(t_wlist **list, int id)
 {

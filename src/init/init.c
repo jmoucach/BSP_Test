@@ -6,7 +6,7 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 17:57:11 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/11 19:20:18 by jmoucach         ###   ########.fr       */
+/*   Updated: 2019/12/12 16:31:25 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,15 @@ void			set_values(t_data *data)
 	data->NumberOfLeaves = 0;
 	data->NumberOfNodes = 0;
 	data->yaw = 0;
+	if (!(data->Nodes = (t_BSPNode*)malloc(sizeof(t_BSPNode) * data->MaxNodes)))
+		exit(EXIT_FAILURE);
+	if (!(data->Walls = (t_wall*)malloc(sizeof(t_wall) * data->MaxWalls)))
+		exit(EXIT_FAILURE);
+	 if (!(data->Leaves = (t_leaf*)malloc(sizeof(t_leaf) * data->MaxLeaves)))
+		exit(EXIT_FAILURE);
+	ft_bzero(data->Walls, sizeof(t_wall) * data->MaxWalls);
+	ft_bzero(data->Leaves, sizeof(t_leaf) * data->MaxLeaves);
+	ft_bzero(data->Nodes, sizeof(t_BSPNode) * data->MaxNodes);
 	if (!(data->surface = (SDL_Surface **)malloc(sizeof(SDL_Surface *) * 6)))
 		exit(EXIT_FAILURE);
 	nullify_surfaces(data);

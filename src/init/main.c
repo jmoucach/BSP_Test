@@ -6,7 +6,7 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 14:14:06 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/04 12:13:27 by acostaz          ###   ########.fr       */
+/*   Updated: 2019/12/12 17:28:51 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,9 @@ void	close_all(t_data *data)
 int		main(int ac, char **av)
 {
 	t_data data;
+	t_wlist *walls;
 
+	walls = NULL;
 	if (ac == 2)
 	{
 		set_values(&data);
@@ -75,7 +77,8 @@ int		main(int ac, char **av)
 			{
 				if (name_parser(av[1]) && new_map(&data, av[1]))
 				{
-					game_loop(&data);
+			make_some_walls(&walls);
+					game_loop(&data, walls);
 					free_map(&data);
 				}
 			}
