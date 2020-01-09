@@ -6,7 +6,7 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 09:25:28 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/12 18:04:23 by jmoucach         ###   ########.fr       */
+/*   Updated: 2020/01/09 13:19:33 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,16 +73,38 @@ void	draw_walls_from_bsp(t_data *data)
 	int i;
 	int j;
 
-	color = 0xffffff;
 	i = 0;
 	while (i < data->NumberOfLeaves)
 	{
 		j = 0;
-		// printf("leaf:%d leaf start:%d end:%d\n", i, data->Leaves[i].start, data->Leaves[i].end);
 		while (data->Leaves[i].start + j < data->Leaves[i].end)
 		{
-			printf("wall index:%d\n",data->Leaves[i].start + j);
-			// printf("start:|X:%f, Y:%f| end:|X:%f, Y:%f|\n", data->Walls[data->Leaves[i].start + j].start.x,data->Walls[data->Leaves[i].start + j].start.y, data->Walls[data->Leaves[i].start + j].end.x, data->Walls[data->Leaves[i].start + j].end.y);
+			if (data->Leaves[i].start + j == 0)
+				color = 0xff00;
+			if (data->Leaves[i].start + j == 1)
+				color = 0xF45B69;
+			if (data->Leaves[i].start + j == 2)
+				color = 0x7CFFC4;
+			if (data->Leaves[i].start + j == 3)
+				color = 0x9FFFF5;
+			if (data->Leaves[i].start + j == 4)
+				color = 0xFF7F11;
+			if (data->Leaves[i].start + j == 5)
+				color = 0xFF1B1C;
+			if (data->Leaves[i].start + j == 6)
+				color = 0xE0ACD5;
+			if (data->Leaves[i].start + j == 7)
+				color = 0xffffff;
+			if (data->Leaves[i].start + j == 8)
+				color = 0x29E7CD;
+			if (data->Leaves[i].start + j == 9)
+				color = 0xBDC667;
+			if (data->Leaves[i].start + j == 10)
+				color = 0x9FCC2E;
+			if (data->Leaves[i].start + j == 11)
+				color = 0xE2D4BA;
+			if (data->Leaves[i].start + j == 12)
+				color = 0x00ffff;
 			draw_2dwall(data, data->Walls[data->Leaves[i].start + j], color);
 			j++;
 		}
@@ -96,14 +118,12 @@ void draw_2dwall(t_data *data, t_wall wall, int color)
 	t_point p2;
 	t_point mid;
 
-	printf("NOT CAST p1:X:%f, Y:%f| p2:X:%f, Y:%f\n", wall.start.x, wall.start.y, wall.end.x, wall.end.y);
 	p1.x = (int)wall.start.x;
 	p1.y = (int)wall.start.y;
 	p2.x = (int)wall.end.x;
 	p2.y = (int)wall.end.y;
 	mid.x = (p1.x + p2.x) / 2;
 	mid.y = (p1.y + p2.y) / 2;
-	printf("CAST p1:X:%d, Y:%d| p2:X:%d, Y:%d\n", p1.x, p1.y, p2.x, p2.y);
 	drawline(p1, p2, data, color);
 	drawline(mid, (t_point){mid.x + wall.normal.x *20, mid.y + wall.normal.y * 20}, data, 0xff);
 }

@@ -6,7 +6,7 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 18:07:10 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/12 18:02:45 by jmoucach         ###   ########.fr       */
+/*   Updated: 2020/01/09 13:24:47 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,14 @@ void game_loop(t_data *data, t_wlist *walls)
 	int width;
 	double time;
 
-	// bspcompiler(walls);
 	print_wlist(walls);
-	// remove_wlist(&walls, 11);
-	// print_wlist(walls);
-	new_bspcompiler(walls, data->NumberOfNodes, data);
+	new_bspcompiler(&walls, data->NumberOfNodes, data);
+	printf("\n");
+	printtree(data);
 	width = SCREEN_WIDTH;
 	while (!data->quit)
 	{
 		draw_walls_from_bsp(data);
-		data->pixels[(int)data->p.pos.x + (int)data->p.pos.y * SCREEN_WIDTH] = 0xffffff;
 		data->ftime = (SDL_GetTicks() - time) / 1000;
 		time = SDL_GetTicks();
 		SDL_PumpEvents();
@@ -81,6 +79,6 @@ void game_loop(t_data *data, t_wlist *walls)
 		SDL_RenderCopy(data->renderer, data->texture, NULL, NULL);
 		SDL_RenderPresent(data->renderer);
 		ft_bzero(data->pixels, (SCREEN_WIDTH * SCREEN_HEIGHT + 1) * 4);
-		SDL_Delay(10000);
+		// SDL_Delay(10000);
 	}
 }

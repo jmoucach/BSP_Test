@@ -6,7 +6,7 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 09:17:05 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/12 17:29:58 by jmoucach         ###   ########.fr       */
+/*   Updated: 2020/01/04 17:16:57 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,14 @@ typedef struct s_leaf
 	int PVS_index;
 }				t_leaf;
 
+typedef struct s_bsputil
+{
+	t_wlist *front;
+	t_wlist *back;
+	t_wlist *front_split;
+	t_wlist *back_split;
+}				t_bsputil;
+
 void			game_loop(t_data *data, t_wlist *walls);
 
 t_wall create_emptywall(void);
@@ -90,6 +98,7 @@ void	draw_3d_walls(t_data *data, t_BSPNode *bsp);
 
 
 
+void addback_wlist(t_wlist **list, t_wlist *new);
 void	make_some_walls(t_wlist **walls);
 int get_wlist_length(t_wlist *list);
 void print_wlist(t_wlist *list);
@@ -101,9 +110,11 @@ void increment_leaves(t_data *data);
 //
 
 //
-void new_bspcompiler(t_wlist *walls, int NodeId, t_data *data);
+void new_bspcompiler(t_wlist **walls, int NodeId, t_data *data);
 int count_unused(t_wlist *list);
 void *ft_realloc(void *ptr, size_t size);
+void print_wall(t_wall wall);
+void printtree(t_data *data);
 //
 
 #endif
