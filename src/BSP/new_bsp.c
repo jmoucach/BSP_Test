@@ -6,11 +6,21 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 11:04:33 by jmoucach          #+#    #+#             */
-/*   Updated: 2020/01/09 13:41:29 by jmoucach         ###   ########.fr       */
+/*   Updated: 2020/01/22 16:17:50 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../hdr/doom.h"
+
+void printlistid(t_wlist *list)
+{
+	while (list)
+	{
+		printf("list id:%d | ", list->id);
+		list = list->next;
+	}
+	printf("\n");
+}
 
 t_wlist *find_splitter(t_wlist *walls)
 {
@@ -35,18 +45,21 @@ t_wlist *find_splitter(t_wlist *walls)
 	return (splitter);
 }
 
-void fillNodeArray(t_wlist **list, int NodeId, t_data *data)
+void fillNodeArray(t_wlist **list, int NodeId, t_data *data, t_box LeafBox)
 {
 		data->Leaves[data->NumberOfLeaves].start = data->NumberOfWalls;
+		// printf("leaf %d start:%d\n", data->NumberOfLeaves, data->NumberOfWalls);
 		while (*list != NULL)
 		{
-			printf("id : %d to index :%d\n", (*list)->id, data->NumberOfWalls);
+			// printf("id : %d to index :%d\n", (*list)->id, data->NumberOfWalls);
 			data->Walls[data->NumberOfWalls] = create_wall((*list)->wall.start,
 				(*list)->wall.end, (*list)->wall.normal);
 			increment_walls(data);
 			remove_wlist(list, (*list)->id);
 		}
 		data->Leaves[data->NumberOfLeaves].end = data->NumberOfWalls;
+		// printf("leaf %d end:%d\n", data->NumberOfLeaves, data->NumberOfWalls);
+		data->Leaves[data->NumberOfLeaves].boundingbox = LeafBox;
 		data->Nodes[NodeId].isleaf = 1;
 		data->Nodes[NodeId].front = data->NumberOfLeaves;
 		increment_leaves(data);
@@ -56,8 +69,11 @@ void fillNodeArray(t_wlist **list, int NodeId, t_data *data)
 void nextStepFront(t_wlist **front,int NodeId, t_data *data)
 {
 	int count = count_unused(*front);
+
+	// printlistid(*front);
+	Calculatebox_list(&(data->Nodes[NodeId].boundingbox), *front);
 	if (count == 0)
-		fillNodeArray(front, NodeId, data);
+		fillNodeArray(front, NodeId, data, data->Nodes[NodeId].boundingbox);
 	else
 	{
 		data->Nodes[NodeId].isleaf = 0;
@@ -69,6 +85,7 @@ void nextStepFront(t_wlist **front,int NodeId, t_data *data)
 
 void nextStepBack(t_wlist **back, int NodeId, t_data *data)
 {
+	Calculatebox_list(&(data->Nodes[NodeId].boundingbox), *back);
 	if (*back == NULL)
 		data->Nodes[NodeId].back = -1;
 	else
@@ -77,16 +94,6 @@ void nextStepBack(t_wlist **back, int NodeId, t_data *data)
 		increment_nodes(data);
 		new_bspcompiler(back, data->NumberOfNodes, data);
 	}
-}
-
-void printlistid(t_wlist *list)
-{
-	while (list)
-	{
-		printf("list id:%d | ", list->id);
-		list = list->next;
-	}
-	printf("\n");
 }
 
 void CompareWalls(t_wlist **walls, t_wlist *splitter, t_bsputil *utils)
@@ -102,7 +109,7 @@ void CompareWalls(t_wlist **walls, t_wlist *splitter, t_bsputil *utils)
 		if (ptr->isUsed == 1)
 			addback_wlist(&(utils->front), dup_wlist(ptr));
 		else
-		{		
+		{
 		classified = classifywall(ptr->wall, splitter->wall);
 		if (classified == C_FRONT || classified == C_ALIGN)
 			addback_wlist(&(utils->front), dup_wlist(ptr));
@@ -110,6 +117,7 @@ void CompareWalls(t_wlist **walls, t_wlist *splitter, t_bsputil *utils)
 			addback_wlist(&(utils->back), dup_wlist(ptr));
 		else
 		{
+			// printf("splitter id:%d\n", splitter->id);
 			utils->front_split = new_wlist(create_emptywall(), 0);
 			utils->back_split = new_wlist(create_emptywall(), 0);
 			splitwall(ptr, splitter->wall, &(utils->front_split), &(utils->back_split));
@@ -134,6 +142,9 @@ void new_bspcompiler(t_wlist **walls, int NodeId, t_data *data)
 	if (!(splitter = find_splitter(*walls)))
 		return ;
 	data->Nodes[NodeId].wall = create_wall(splitter->wall.start, splitter->wall.end, splitter->wall.normal);
+	data->Nodes[NodeId].boundingbox.Min = create_vertex(40000,40000);
+	data->Nodes[NodeId].boundingbox.Max = create_vertex(-40000,-40000);
+	// Calculatebox_wall(&(data->Nodes[NodeId].boundingbox), data->Nodes[NodeId].wall);
 	CompareWalls(walls, splitter, &utils);
 	nextStepFront(&(utils.front), NodeId, data);
 	nextStepBack(&(utils.back), NodeId, data);

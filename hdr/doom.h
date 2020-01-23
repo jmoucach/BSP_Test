@@ -6,7 +6,7 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 09:17:05 by jmoucach          #+#    #+#             */
-/*   Updated: 2020/01/04 17:16:57 by jmoucach         ###   ########.fr       */
+/*   Updated: 2020/01/21 13:28:23 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,19 @@ typedef struct s_wlist
 	struct s_wlist	*next;
 }				t_wlist;
 
+typedef struct s_box
+{
+	t_vertex Min;
+	t_vertex Max;
+}				t_box;
+
 typedef struct s_BSPNode
 {
 	t_wall		wall;
 	short isleaf;
 	int front;
 	int	 back;
+	t_box	boundingbox;
 }				t_BSPNode;
 
 typedef struct s_leaf
@@ -58,7 +65,19 @@ typedef struct s_leaf
 	int start;
 	int end;
 	int PVS_index;
+	int Portal_index[50];
+	int NumberOfPortals;
+	t_box	boundingbox;
 }				t_leaf;
+
+typedef struct s_portal
+{
+	short NumberOfLeaves;
+	t_vertex start;
+	t_vertex end;
+	int LeafOwners[2];
+	struct s_portal *next;
+}				t_portal;
 
 typedef struct s_bsputil
 {
@@ -107,6 +126,7 @@ void print_wlist(t_wlist *list);
 void increment_nodes(t_data *data);
 void increment_walls(t_data *data);
 void increment_leaves(t_data *data);
+void increment_portals(t_data *data);
 //
 
 //
@@ -117,4 +137,18 @@ void print_wall(t_wall wall);
 void printtree(t_data *data);
 //
 
+void Calculatebox_list(t_box *box, t_wlist *list);
+void Calculatebox_wall(t_box *box, t_wall wall);
+
+void draw_boudingbox(t_data *data, t_box box, int colour);
+t_wall expand_wall_to_boundingbox(t_box box, t_wall wall);
+
+//
+t_portal *dup_portal(t_portal *portal);
+void dup_portal_data(t_portal *portal, t_portal**dup);
+void splitportal(t_portal *portal, t_portal **front, t_portal **back, t_data *data, int NodeId);
+t_portal *clip_portal(t_portal *portal, t_data *data, int NodeId);
+t_portal *find_initial_portal(t_data *data, int NodeId);
+short check_dup_portal(t_data *data, t_portal *portal);
+//
 #endif

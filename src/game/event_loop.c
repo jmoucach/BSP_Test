@@ -6,7 +6,7 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 18:07:10 by jmoucach          #+#    #+#             */
-/*   Updated: 2020/01/09 13:24:47 by jmoucach         ###   ########.fr       */
+/*   Updated: 2020/01/23 14:02:20 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,33 @@ void game_loop(t_data *data, t_wlist *walls)
 	const Uint8 *state;
 	int width;
 	double time;
+	t_portal *portal;
 
 	print_wlist(walls);
 	new_bspcompiler(&walls, data->NumberOfNodes, data);
-	printf("\n");
-	printtree(data);
+	printf("Number of Nodes :%d\n", data->NumberOfNodes);
+	printf("Number of Leaves :%d\n", data->NumberOfLeaves);
+	data->Walls = ft_realloc(data->Walls, data->NumberOfWalls * sizeof(t_wall));
 	width = SCREEN_WIDTH;
+	// head = clip_portal(portal, data, 0);
 	while (!data->quit)
 	{
+		int i = -1;
+		while (++i < data->NumberOfNodes)
+		{
+			portal = find_initial_portal(data, i);
+			draw_2dwall(data, (t_wall){portal->start, portal->end, (t_vertex){0,0}}, 0xff0000);
+			free(portal);
+			// printf("owners :%d %d\n", list->LeafOwners[0], list->LeafOwners[1]);
+		}
+		// draw_2dwall(data, expand_wall_to_boundingbox(data->Leaves[0].boundingbox, data->Walls[1]), 0xffffff);
+		// int i = -1;
+		// while (++i < data->NumberOfNodes)
+		// 	draw_boudingbox(data, data->Nodes[i].boundingbox, 0x00ff00);
 		draw_walls_from_bsp(data);
+		// int i = -1;
+		// while (++i < data->NumberOfLeaves)
+		// 	draw_boudingbox(data, data->Leaves[i].boundingbox, 0xff00);
 		data->ftime = (SDL_GetTicks() - time) / 1000;
 		time = SDL_GetTicks();
 		SDL_PumpEvents();

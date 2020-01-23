@@ -6,7 +6,7 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 10:38:35 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/09 16:11:02 by jmoucach         ###   ########.fr       */
+/*   Updated: 2020/01/22 16:10:30 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,13 @@ int get_splitter_score(t_wlist *candidate, t_wlist *list)
 		if (list->id != candidate->id)
 		{
 			output = classifywall(list->wall, candidate->wall);
-			if (output == C_FRONT || output == C_ALIGN)
+			if (output == C_FRONT)
 				frontfacing++;
+			else if (output == C_ALIGN)
+			{
+				frontfacing++;
+				backfacing++;
+			}
 			else if (output == C_BACK)
 				backfacing++;
 			else

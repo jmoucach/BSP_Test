@@ -6,7 +6,7 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 14:19:39 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/12 16:35:39 by jmoucach         ###   ########.fr       */
+/*   Updated: 2020/01/21 11:58:17 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,10 @@ typedef struct		s_data
 	struct s_leaf *Leaves;
 	int NumberOfLeaves;
 	int MaxLeaves;
+
+	struct s_portal **Portals;
+	int NumberOfPortals;
+	int MaxPortals;
 	//
 	int				**map;
 	t_point			msize;

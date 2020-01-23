@@ -6,7 +6,7 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 09:25:28 by jmoucach          #+#    #+#             */
-/*   Updated: 2020/01/09 13:19:33 by jmoucach         ###   ########.fr       */
+/*   Updated: 2020/01/22 17:37:18 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,33 +79,24 @@ void	draw_walls_from_bsp(t_data *data)
 		j = 0;
 		while (data->Leaves[i].start + j < data->Leaves[i].end)
 		{
-			if (data->Leaves[i].start + j == 0)
-				color = 0xff00;
-			if (data->Leaves[i].start + j == 1)
-				color = 0xF45B69;
-			if (data->Leaves[i].start + j == 2)
-				color = 0x7CFFC4;
-			if (data->Leaves[i].start + j == 3)
-				color = 0x9FFFF5;
-			if (data->Leaves[i].start + j == 4)
-				color = 0xFF7F11;
-			if (data->Leaves[i].start + j == 5)
-				color = 0xFF1B1C;
-			if (data->Leaves[i].start + j == 6)
-				color = 0xE0ACD5;
-			if (data->Leaves[i].start + j == 7)
-				color = 0xffffff;
-			if (data->Leaves[i].start + j == 8)
-				color = 0x29E7CD;
-			if (data->Leaves[i].start + j == 9)
-				color = 0xBDC667;
-			if (data->Leaves[i].start + j == 10)
-				color = 0x9FCC2E;
-			if (data->Leaves[i].start + j == 11)
-				color = 0xE2D4BA;
-			if (data->Leaves[i].start + j == 12)
-				color = 0x00ffff;
+			// color = 0xffffff;
+			if (i == 0)
+				color = 0xff; // blue
+			else if (i == 1)
+				color = 0xff00; // green
+			else if (i == 2)
+				color = 0xff00ff; // magenta
+			else if (i == 3)
+				color = 0x00ffff; // cyan
+			else if (i == 4)
+				color = 0xffff00; // yellow
+			else
+				color = 0xffffff; // white
+			// t_wall wall = expand_wall_to_boundingbox(data->Leaves[i].boundingbox,data->Walls[data->Leaves[i].start + j]);
+			// printf("index: %d\n",data->Leaves[i].start + j );
+			// print_wall(wall);
 			draw_2dwall(data, data->Walls[data->Leaves[i].start + j], color);
+			// draw_2dwall(data, wall, color);
 			j++;
 		}
 		i++;
@@ -124,6 +115,6 @@ void draw_2dwall(t_data *data, t_wall wall, int color)
 	p2.y = (int)wall.end.y;
 	mid.x = (p1.x + p2.x) / 2;
 	mid.y = (p1.y + p2.y) / 2;
+	drawline(mid, (t_point){mid.x + wall.normal.x *20, mid.y + wall.normal.y * 20}, data, 0x80ff);
 	drawline(p1, p2, data, color);
-	drawline(mid, (t_point){mid.x + wall.normal.x *20, mid.y + wall.normal.y * 20}, data, 0xff);
 }

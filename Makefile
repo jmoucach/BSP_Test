@@ -6,7 +6,7 @@
 #    By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/11 14:38:52 by acostaz           #+#    #+#              #
-#    Updated: 2020/01/04 18:42:16 by jmoucach         ###   ########.fr        #
+#    Updated: 2020/01/21 14:16:46 by jmoucach         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,10 +23,11 @@ SRC_NAME= init/main.c\
 	 draw/draw_minimap.c\
 	 draw/show_player.c\
 	 draw/draw_2dwall.c\
+	 draw/draw_boudingbox.c\
 	 map/new_map.c\
 	 map/fill_map.c\
 	 map/parsing.c\
-	 png/check_png_signature.c \
+	 png/check_png_signature.c\
 	 png/idat_block_extraction.c \
 	 png/idat_utils.c \
 	 png/parse_png.c \
@@ -55,13 +56,18 @@ SRC_NAME= init/main.c\
 	 BSP/make_some_walls.c\
 	 BSP/increment.c\
 	 BSP/wlist_basics.c\
-	 BSP/utils.c
+	 BSP/utils.c\
+	 bounding_box/calculatebox.c\
+	 bounding_box/expand_wall_to_boundingbox.c\
+	 portal/dup_portal.c\
+	 portal/clip_portal.c\
+	 portal/find_initial_portal.c
 	#  draw/draw_3dwalls.c
 
 SRC_DIR = src
 BUILD_DIR = obj
 INC_DIR = hdr
-OBJ_SUBDIRS= init draw map raycasting game  image vertex png BSP
+OBJ_SUBDIRS= init draw map raycasting game  image vertex png BSP bounding_box portal
 SUBDIRS= $(foreach dir, $(OBJ_SUBDIRS), $(BUILD_DIR)/$(dir))
 
 LIB= `sdl2-config --libs` \
