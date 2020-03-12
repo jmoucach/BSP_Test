@@ -6,7 +6,7 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 14:51:49 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/02 13:00:49 by jmoucach         ###   ########.fr       */
+/*   Updated: 2020/01/30 13:36:54 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ short			fill_map(t_data *data, char *str)
 	{
 		if (str[i] == 'P')
 		{
-			data->p.pos.x = (i / 2) / data->msize.x + 0.5;
-			data->p.pos.y = (i / 2) % data->msize.x + 0.5;
 			data->map[(i / 2) / data->msize.x]
 				[(i / 2) % data->msize.x] = 0;
 		}

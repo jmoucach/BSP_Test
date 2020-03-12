@@ -6,7 +6,7 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 14:14:06 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/12 17:28:51 by jmoucach         ###   ########.fr       */
+/*   Updated: 2020/01/30 14:27:58 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,6 @@ void	close_all(t_data *data)
 		SDL_DestroyRenderer(data->renderer);
 	if (data->window)
 		SDL_DestroyWindow(data->window);
-	while (i < 6)
-	{
-		if (data->surface[i])
-			SDL_FreeSurface(data->surface[i]);
-		i++;
-	}
-	if (data->surface)
-		free(data->surface);
 	SDL_Quit();
 }
 
@@ -68,21 +60,16 @@ int		main(int ac, char **av)
 	t_wlist *walls;
 
 	walls = NULL;
+	(void)av;
 	if (ac == 2)
 	{
 		set_values(&data);
 		if (init(&data))
 		{
-			if (loadmedia(&data))
-			{
-				if (name_parser(av[1]) && new_map(&data, av[1]))
-				{
-			make_some_walls(&walls);
+				
+					make_some_walls(&walls);
 					game_loop(&data, walls);
-					free_map(&data);
-				}
-			}
-			close_all(&data);
+					close_all(&data);
 		}
 		else
 		{

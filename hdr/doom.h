@@ -6,7 +6,7 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 09:17:05 by jmoucach          #+#    #+#             */
-/*   Updated: 2020/01/21 13:28:23 by jmoucach         ###   ########.fr       */
+/*   Updated: 2020/01/30 13:35:06 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,14 @@ typedef struct s_bsputil
 	t_wlist *back_split;
 }				t_bsputil;
 
+typedef struct s_portalutil
+{
+	t_portal *front;
+	t_portal *back;
+	t_portal *front_split;
+	t_portal *back_split;
+}				t_portalutil;
+
 void			game_loop(t_data *data, t_wlist *walls);
 
 t_wall create_emptywall(void);
@@ -98,12 +106,20 @@ void add_wlist(t_wlist **list, t_wlist *new);
 t_wlist *new_wlist(t_wall wall, int id);
 int classifywall(t_wall w1, t_wall w2);
 int classifypoint(t_vertex pt, t_wall wall);
+
+//
 double dotproduct(t_vertex v1, t_vertex v2);
 t_vertex add_vertex(t_vertex v1, t_vertex v2);
 t_vertex create_vertex(double x, double y);
 t_vertex unit_vertex(t_vertex v);
 t_vertex perp_vertex(t_vertex v);
+short compare_vertex(t_vertex v1, t_vertex v2);
 t_vertex substract_vertex(t_vertex v1, t_vertex v2);
+short vertex_are_colinear(t_vertex v1, t_vertex v2);
+short vertex_on_segment(t_vertex pt, t_vertex start, t_vertex end);
+double vertex_distance(t_vertex p1, t_vertex p2);
+//
+
 void draw_2dwall(t_data *data, t_wall wall, int color);
 void	draw_walls_from_bsp(t_data *data);
 void	draw_bin_tree(t_data *data, t_BSPNode *node, int level, t_point point);
@@ -146,9 +162,16 @@ t_wall expand_wall_to_boundingbox(t_box box, t_wall wall);
 //
 t_portal *dup_portal(t_portal *portal);
 void dup_portal_data(t_portal *portal, t_portal**dup);
-void splitportal(t_portal *portal, t_portal **front, t_portal **back, t_data *data, int NodeId);
-t_portal *clip_portal(t_portal *portal, t_data *data, int NodeId);
+void splitportal(t_portal **portal, t_wall wall);
+void clip_portal(t_portal **portal, t_data *data, int NodeId);
 t_portal *find_initial_portal(t_data *data, int NodeId);
 short check_dup_portal(t_data *data, t_portal *portal);
+short compare_portal(t_portal *p1, t_portal *p2);
+t_portal *new_portal(t_vertex start, t_vertex end);
+void add_portal(t_portal **head, t_portal *new);
+void addback_portal(t_portal **head, t_portal *new);
+void remove_portal(t_portal **head, t_portal *removed);
+void splitportal_wall_inside(t_portal **portal, t_wall wall);
+int get_portal_length(t_portal *portal);
 //
 #endif

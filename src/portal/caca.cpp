@@ -1,81 +1,145 @@
-void BuildPortals(void)
+PORTAL *ClipPortal(long Node, PORTAL *Portal)
 {
-	long stackpointer = 0;
-	NODESTACK *NodeStack = new NODESTACK[NumberOfNodes + 1] int portalindex;
-	NodeStack[stackpointer].Node = 0; // root node
-	NodeStack[stackpointer].JumpBackPoint = 0;
-
-START:
-
-	PORTAL *InitialPortal = CalculateInitialPortal(NodeStack[stackpointer].Node);
-	PORTAL *PortalList = ClipPortal(0, InitialPortal);
-
-	PORTAL *Iterator = PortalList; // Step through the Portal List
-
-	while (Iterator != NULL)
+	PORTAL *PortalList = NULL, *FrontPortalList = NULL, *BackPortalList = NULL, *Iterator = NULL, *FrontSplit = NULL, *BackSplit = NULL;
+	switch (ClassifyPoly(&PlaneArray[NodeArray[Node].Plane], (POLYGON *)Portal))
 	{
-		if (Iterator->NumberOfLeafs != 2) // not in two leafs so delete
-		{
-			PORTAL *temp = Iterator->Next;
-			RemovePortalFromList(Iterator);
-			Iterator = temp;
-		}
 
+	case CP_ONPLANE:
+		Send down Both Trees if (NodeArray[Node].IsLeaf != 0) // this is a Leaf Node
+		{
+			// The Front is a Leaf
+			Portal->LeafOwnerArray[Portal->NumberOfLeafs] = NodeArray[Node].Front;
+			Portal->NumberOfLeafs++;
+			Portal->Next = NULL;
+			Portal->Prev = NULL;
+			FrontPortalList = Portal;
+		}
 		else
 		{
-			if (CheckDuplicatePortal(Iterator, &portalindex) == true)
+			// Send the Portal Down the Front List and get returned a list of PortalFragments that survived the Front Tree
+			FrontPortalList = ClipPortal(NodeArray[Node].Front, Portal);
+		}
+
+		// Then send each fragment down the back tree.
+		if (FrontPortalList == NULL)
+			return NULL;
+		if (NodeArray[Node].Back == -1)
+			return FrontPortalList;
+
+		while (FrontPortalList != NULL)
+		{
+			PORTAL *tempnext = FrontPortalList->Next;
+			BackPortalList = NULL;
+			BackPortalList = ClipPortal(NodeArray[Node].Back, FrontPortalList);
+
+			if (BackPortalList != NULL)
 			{
-				PORTAL *temp = Iterator->Next;
-				RemovePortalFromList(Iterator);
-				Iterator = temp;
+				Iterator = BackPortalList;
+				while (Iterator->Next != NULL)
+				{
+					Iterator = Iterator->Next;
+				}
+				// attach the last fragment to the first fragment from a previos loop. Iterator->Next=PortalList;
+				if (PortalList != NULL)
+				{
+					PortalList->Prev = Iterator;
+				}
+				PortalList = BackPortalList; // portal List now points at the current complete list of fragment collected from each loop
 			}
 
-			else
+			FrontPortalList = tempnext;
+		}
+		return PortalList;
+		break;
+
+	case CP_FRONT: // Either send it down the front tree or add it to the portal list because it has come out //Empty Space
+
+		if (NodeArray[Node].IsLeaf == 0)
+		{
+			PortalList = ClipPortal(NodeArray[Node].Front, Portal);
+			return PortalList;
+		}
+		else // The Front Node is a Empty Leaf so Add it to the Portal List
+		{
+			Portal->LeafOwnerArray[Portal->NumberOfLeafs] = NodeArray[Node].Front;
+			Portal->NumberOfLeafs++;
+			Portal->Next = NULL;
+			Portal->Prev = NULL;
+			return Portal;
+		}
+		break;
+
+	case CP_BACK: // either asend it downthe back tree or Delete it if no back tree exists
+
+		if (NodeArray[Node].Back != -1)
+		{
+			PortalList = ClipPortal(NodeArray[Node].Back, Portal);
+			return PortalList;
+		}
+		else
+		{
+			DeletePortal(Portal);
+			return NULL;
+		}
+		break;
+
+	case CP_SPANNING:
+
+		FrontSplit = new PORTAL;
+		BackSplit = new PORTAL;
+		ZeroMemory(FrontSplit, sizeof(PORTAL));
+		ZeroMemory(BackSplit, sizeof(PORTAL));
+		SplitPortal(Portal, &PlaneArray[NodeArray[Node].Plane], FrontSplit, BackSplit);
+		DeletePortal(Portal);
+		if (NodeArray[Node].IsLeaf == 0)
+		{
+			FrontPortalList = ClipPortal(NodeArray[Node].Front, FrontSplit);
+		}
+		else // Its about to get pushed into a Leaf
+		{
+			FrontSplit->LeafOwnerArray[FrontSplit->NumberOfLeafs] = NodeArray[Node].Front;
+			FrontSplit->NumberOfLeafs++;
+			FrontSplit->Prev = NULL;
+			FrontSplit->Next = NULL;
+			FrontPortalList = FrontSplit;
+		}
+
+		if (NodeArray[Node].Back != -1) // the backsplit is in solid space
+		{
+			BackPortalList = ClipPortal(NodeArray[Node].Back, BackSplit);
+		}
+		else // delete it its in solid space
+		{
+			DeletePortal(BackSplit);
+		}
+		if (FrontPortalList != NULL) // Find the End of the list and attach it to Front Back List
+		{
+			Iterator = FrontPortalList;
+			while (Iterator->Next != NULL)
 			{
-				PortalArray[portalindex] = Iterator;
-				if (portalindex == NumberOfPortals)
-				{
-					for (int a = 0; a > Iterator -> NumberOfLeafs; a++)
-					{
-						long Index = Iterator->LeafOwnerArray[a];
-						LeafArray[Index].PortalIndexList[LeafArray[Index].NumberOfPortals] = NumberOfPortals;
-						LeafArray[Index].NumberOfPortals++;
-					}
-					IncreaseNumberOfPortals();
-				}
-
 				Iterator = Iterator->Next;
-			} // if not a duplicate portal
-		}	 // end else
-	}		  // END WHILE LOOP
+			}
+			if (BackPortalList != NULL)
+			{
+				Iterator->Next = BackPortalList;
+				BackPortalList->Prev = Iterator;
+			}
+			return FrontPortalList;
+		} // there is something in the front list
 
-	if (NodeArray[NodeStack[stackpointer].Node].IsLeaf == 0)
-	{
-		NodeStack[stackpointer + 1].Node = NodeArray[NodeStack[stackpointer].Node].Front;
-		NodeStack[stackpointer + 1].JumpBackPoint = 1;
-		stackpointer++;
-		goto START;
-	}
+		else ////There is nothing in the front list
+		{
+			if (BackPortalList != NULL)
+				return BackPortalList;
+			return NULL;
+		}
 
-BACK:
-	if (NodeArray[NodeStack[stackpointer].Node].Back != -1)
-	{
-		NodeStack[stackpointer + 1].Node = NodeArray[NodeStack[stackpointer].Node].Back;
-		NodeStack[stackpointer + 1].JumpBackPoint = 2;
-		stackpointer++;
-		goto START;
-	};
+		return NULL;
+		break;
 
-END:
-
-	stackpointer--; // This is like returning from a function
-	if (stackpointer > -1)
-	{
-		if (NodeStack[stackpointer + 1].JumpBackPoint == 1)
-			goto BACK;
-		else if (NodeStack[stackpointer + 1].JumpBackPoint == 2)
-			goto END;
-	}
-
-	delete[] NodeStack;
+	default:
+		return NULL;
+		break;
+	} //end switch
+	return NULL;
 }

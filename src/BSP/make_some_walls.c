@@ -6,7 +6,7 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 15:41:57 by acostaz           #+#    #+#             */
-/*   Updated: 2020/01/22 16:09:29 by jmoucach         ###   ########.fr       */
+/*   Updated: 2020/01/30 14:32:26 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,29 @@ void	make_some_walls(t_wlist **walls)
 	unit = unit_vertex(substract_vertex(wall.end, wall.start));
 	wall.normal = perp_vertex(unit);
 	tmp  = new_wlist(wall, 15);
+	addback_wlist(walls, tmp);
+	wall.start = create_vertex(150.0, 250.0);
+	wall.end = create_vertex(150.0, 350.0);
+	unit = unit_vertex(substract_vertex(wall.end, wall.start));
+	wall.normal = perp_vertex(unit);
+	tmp  = new_wlist(wall, 16);
+	addback_wlist(walls, tmp);
+	wall.start = create_vertex(150.0, 350.0);
+	wall.end = create_vertex(200.0, 350.0);
+	unit = unit_vertex(substract_vertex(wall.end, wall.start));
+	wall.normal = perp_vertex(unit);
+	tmp  = new_wlist(wall, 17);
+	addback_wlist(walls, tmp);
+	wall.start = create_vertex(200.0, 350.0);
+	wall.end = create_vertex(200.0, 250.0);
+	unit = unit_vertex(substract_vertex(wall.end, wall.start));
+	wall.normal = perp_vertex(unit);
+	tmp  = new_wlist(wall, 18);
+	addback_wlist(walls, tmp);
+	wall.start = create_vertex(200.0, 250.0);
+	wall.end = create_vertex(150.0, 250.0);
+	unit = unit_vertex(substract_vertex(wall.end, wall.start));
+	wall.normal = perp_vertex(unit);
+	tmp  = new_wlist(wall, 19);
 	addback_wlist(walls, tmp);
 }

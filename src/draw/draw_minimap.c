@@ -6,7 +6,7 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 19:15:41 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/02 13:00:49 by jmoucach         ###   ########.fr       */
+/*   Updated: 2020/01/30 14:18:36 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,4 @@ void		draw_minimap(t_data *data)
 		}
 		y++;
 	}
-	show_player(data, l);
 }

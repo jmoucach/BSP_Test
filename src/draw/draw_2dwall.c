@@ -6,7 +6,7 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 09:25:28 by jmoucach          #+#    #+#             */
-/*   Updated: 2020/01/22 17:37:18 by jmoucach         ###   ########.fr       */
+/*   Updated: 2020/01/30 16:24:28 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,10 @@ void	draw_walls_from_bsp(t_data *data)
 				color = 0x00ffff; // cyan
 			else if (i == 4)
 				color = 0xffff00; // yellow
+			else if (i == 5)
+				color = 0xe5687e; // pink
+			else if (i == 6)
+				color = 0xff7e00; // orange
 			else
 				color = 0xffffff; // white
 			// t_wall wall = expand_wall_to_boundingbox(data->Leaves[i].boundingbox,data->Walls[data->Leaves[i].start + j]);

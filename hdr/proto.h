@@ -6,7 +6,7 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 15:03:28 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/12 17:30:14 by jmoucach         ###   ########.fr       */
+/*   Updated: 2020/01/30 13:38:09 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ short			create_renderer_texture_and_pixels(t_data *data);
 void			nullify_surfaces(t_data *data);
 short			init(t_data *data);
 void			set_values(t_data *data);
-void			set_raycast_values(t_raycast *value, t_player player, int x);
 
 /*
 ** Draw
@@ -81,24 +80,6 @@ void			handle_input(t_data *data, const Uint8 *state);
 void			show_player(t_data *data, t_point length);
 
 /*
-** Raycasting
-*/
-
-void			give_draw_values(t_raycast *values, t_data *data);
-void			get_texturing_values(t_raycast *values, t_data *data);
-void			set_dist_and_step(t_raycast *values);
-void			hit_wall(t_raycast *values, t_data *data);
-void			raycasting(t_data *data);
-
-/*
-** Load image
-*/
-
-Uint32			get_pixel(SDL_Surface *s, int x, int y);
-SDL_Surface		*loadimage(char *path);
-short			loadmedia(t_data *data);
-
-/*
 ** Parsing
 */
 
@@ -106,22 +87,5 @@ short			count_lines_and_col(t_data *data, char *str);
 short			parse_boudaries(char *str, t_data *data);
 short			parse_map(t_data *data, char *str);
 short			parse_char(char *str);
-
-/*
-** Floor caster
-*/
-
-void			floor_side(t_floorcast *f, t_raycast *r);
-void			roofcaster(t_data *data, t_raycast *r, int x);
-void			floorcaster(t_data *data, t_raycast *r, int x);
-
-/*
-** movement
-*/
-
-void			strafe(t_data *data, int strafe);
-void			walk(t_data *data, int walkdir);
-void			sprint(t_data *data, int sprintdir);
-void			rotate(t_data *data, int rotdir);
 
 #endif

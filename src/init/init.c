@@ -6,20 +6,11 @@
 /*   By: jmoucach <jmoucach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 17:57:11 by jmoucach          #+#    #+#             */
-/*   Updated: 2019/12/12 16:31:25 by jmoucach         ###   ########.fr       */
+/*   Updated: 2020/01/30 14:27:50 by jmoucach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../hdr/doom.h"
-
-void			nullify_surfaces(t_data *data)
-{
-	int			i;
-
-	i = -1;
-	while (++i < 6)
-		data->surface[i] = NULL;
-}
 
 short			create_renderer_texture_and_pixels(t_data *data)
 {
@@ -46,34 +37,8 @@ short			create_renderer_texture_and_pixels(t_data *data)
 	return (1);
 }
 
-void			set_raycast_values(t_raycast *values, t_player player, int x)
-{
-	values->camera = 2 * x / (double)SCREEN_WIDTH - 1;
-	values->ray.pos.x = player.pos.x;
-	values->ray.pos.y = player.pos.y;
-	values->ray.dir.x = player.dir.x + player.plane.x * values->camera;
-	values->ray.dir.y = player.dir.y + player.plane.y * values->camera;
-	values->m_pos.x = (int)values->ray.pos.x;
-	values->m_pos.y = (int)values->ray.pos.y;
-	values->deltadist.x = sqrt(1 + (values->ray.dir.y * values->ray.dir.y)
-		/ (values->ray.dir.x * values->ray.dir.x));
-	values->deltadist.y = sqrt(1 + (values->ray.dir.x * values->ray.dir.x)
-		/ (values->ray.dir.y * values->ray.dir.y));
-	values->hit = 0;
-	values->side = 0;
-}
-
 void			set_values(t_data *data)
 {
-	data->p.angle = 0 * M_PI / 180;
-	data->p.dir.x = 1;
-	data->p.dir.y = 0;
-	data->toggle_minimap = 0;
-	data->p.plane.x = 0;
-	data->p.plane.y = -0.66;
-	data->p.rspeed = 2;
-	data->p.sprintspeed = 6;
-	data->p.walkspeed = 3;
 	data->texture = NULL;
 	data->renderer = NULL;
 	data->window = NULL;
@@ -86,19 +51,18 @@ void			set_values(t_data *data)
 	data->NumberOfWalls = 0;
 	data->NumberOfLeaves = 0;
 	data->NumberOfNodes = 0;
-	data->yaw = 0;
 	if (!(data->Nodes = (t_BSPNode*)malloc(sizeof(t_BSPNode) * data->MaxNodes)))
 		exit(EXIT_FAILURE);
 	if (!(data->Walls = (t_wall*)malloc(sizeof(t_wall) * data->MaxWalls)))
 		exit(EXIT_FAILURE);
-	 if (!(data->Leaves = (t_leaf*)malloc(sizeof(t_leaf) * data->MaxLeaves)))
+	if (!(data->Leaves = (t_leaf*)malloc(sizeof(t_leaf) * data->MaxLeaves)))
+		exit(EXIT_FAILURE);
+	if (!(data->Portals = (t_portal**)malloc(sizeof(t_portal) * data->MaxPortals)))
 		exit(EXIT_FAILURE);
 	ft_bzero(data->Walls, sizeof(t_wall) * data->MaxWalls);
 	ft_bzero(data->Leaves, sizeof(t_leaf) * data->MaxLeaves);
 	ft_bzero(data->Nodes, sizeof(t_BSPNode) * data->MaxNodes);
-	if (!(data->surface = (SDL_Surface **)malloc(sizeof(SDL_Surface *) * 6)))
-		exit(EXIT_FAILURE);
-	nullify_surfaces(data);
+	ft_bzero(data->Portals, sizeof(t_portal*) * data->MaxPortals);
 }
 
 short			init(t_data *data)
